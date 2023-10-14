@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
-
+import logo from './../assets/logo.png';
+import logo_big from './../assets/logo_big2.png';
+import student_avatar from './../assets/student_avatar.jpg';
 function Dashboard() {
   const [isOpenUsermenu, setIsOpenUsermenu] = useState(false);
 
@@ -36,11 +38,7 @@ function Dashboard() {
                 target="blank"
                 className="flex ml-2 md:mr-24"
               >
-                <img
-                  src="https://flowbite.com/docs/images/logo.svg"
-                  className="h-8 mr-3"
-                  alt="FlowBite Logo"
-                />
+                <img src={logo} className="h-8 mr-3" alt="FlowBite Logo" />
                 <span className="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">
                   APAssist
                 </span>
@@ -59,7 +57,7 @@ function Dashboard() {
                     <span className="sr-only">Open user menu</span>
                     <img
                       className="w-8 h-8 rounded-full"
-                      src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+                      src={student_avatar}
                       alt="user photo"
                     />
                   </button>
@@ -139,7 +137,7 @@ function Dashboard() {
         className="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
         aria-label="Sidebar"
       >
-        <div className="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
+        <div className="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800 flex flex-col justify-between">
           <ul className="space-y-2 font-medium">
             <li>
               <NavLink
@@ -222,11 +220,20 @@ function Dashboard() {
               </NavLink>
             </li>
           </ul>
+          <ul>
+            <li
+              style={{
+                bottom: '40px',
+              }}
+            >
+              <img src={logo_big} alt="" />
+            </li>
+          </ul>
         </div>
       </aside>
 
       <div className="p-4 sm:ml-64 w-full">
-        <div className="p-4  h-[100%] rounded-lg dark:border-gray-700 pt-14">
+        <div className="h-[100%] rounded-lg dark:border-gray-700 pt-14">
           <Outlet />
         </div>
       </div>

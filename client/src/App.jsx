@@ -1,3 +1,4 @@
+import './themes/default/main.scss';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Assistant from './components/Assistant';
 import Registration from './components/Registration';

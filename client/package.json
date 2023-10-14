@@ -12,9 +12,12 @@
   },
   "dependencies": {
     "@chatscope/chat-ui-kit-react": "^1.10.1",
+    "llamaindex": "^0.0.30",
+    "openai": "^4.11.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.16.0"
+    "react-router-dom": "^6.16.0",
+    "vite-plugin-wasm": "^3.2.2"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
@@ -28,6 +31,7 @@
     "eslint-plugin-react-refresh": "^0.4.3",
     "postcss": "^8.4.30",
     "prettier": "^3.0.3",
+    "sass": "^1.69.3",
     "tailwindcss": "^3.3.3",
     "vite": "^4.4.5"
   }

@@ -1,0 +1,23 @@
+@charset "utf-8";
+
+$color-primary: rgb(55 65 81);
+$color-primary-light: #fff;
+$color-primary-dark: #000;
+$color-primary-dark: #000;
+
+$main-container-border: 0;
+$color-text: white;
+$message-input-placeholder-color: rgb(206, 206, 206);
+$button-send-color: black;
+
+$message-list-bg-color: rgb(243, 244, 246);
+
+$chat-container-message-input-bg-color: rgb(243, 244, 246);
+
+$main-container-border: 0;
+
+@import '../../../node_modules/@chatscope/chat-ui-kit-styles/themes/default/variables';
+@import '@chatscope/chat-ui-kit-styles/themes/default/main.scss';
+@import '../../../node_modules/@chatscope/chat-ui-kit-styles/themes/default/main';
+@import '../../../node_modules/@chatscope/chat-ui-kit-styles/themes/default/helpers/mixins';
+@import '../../../node_modules/@chatscope/chat-ui-kit-styles/themes/default/helpers/functions';

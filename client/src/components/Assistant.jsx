@@ -1,4 +1,3 @@
-import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css';
 import {
   MainContainer,
   ChatContainer,
@@ -6,10 +5,12 @@ import {
   Message,
   MessageInput,
   TypingIndicator,
+  Avatar,
 } from '@chatscope/chat-ui-kit-react';
 import { useState } from 'react';
-
-const API_KEY = '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';
+import apassist_avatar from './../assets/avatar.png';
+import student_avatar from './../assets/student_avatar.jpg';
+import { getQueryResponse } from '../api/query';
 
 export default function Assistant() {
   const [messages, setMessages] = useState([
@@ -33,58 +34,50 @@ export default function Assistant() {
     setMessages(newMessages);
 
     setIsTyping(true);
-    await processMessageToChatGPT(newMessages);
+    await processQuery(newMessages);
   };
 
-  async function processMessageToChatGPT(chatMessages) {
-    // messages is an array of messages
-    // Format messages for OpenAI API
-    // API is expecting objects in format of { role: "user" or "assistant", "content": "message here"}
-    // So we need to reformat
+  async function processQuery(chatMessages) {
+    const prompt = chatMessages[chatMessages.length - 1].message;
 
-    let apiMessages = chatMessages.map((messageObject) => {
-      let role = '';
-      if (messageObject.sender === 'APAssist') {
-        role = 'assistant';
-      } else {
-        role = 'user';
+    // get stream response
+    const response = await getQueryResponse(prompt);
+    const reader = response.body.getReader();
+
+    let streamText = '';
+
+    // eslint-disable-next-line no-constant-condition
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) {
+        break;
       }
-      return { role: role, content: messageObject.message };
-    });
 
-    // Get the request body set up with the model we plan to use
-    // and the messages which we formatted above. We add a system message in the front to'
-    // determine how we want system to act.
-    const apiRequestBody = {
-      model: 'gpt-3.5-turbo',
-      messages: [...apiMessages],
-    };
+      // Assuming the stream is sending text data
+      const message = new TextDecoder().decode(value);
+      console.log(message);
+      streamText += message;
+      setMessages([
+        ...chatMessages,
+        {
+          message: streamText + '| ',
+          sender: 'APAssist',
+        },
+      ]);
+    }
 
-    await fetch('https://api.openai.com/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        Authorization: 'Bearer ' + API_KEY,
-        'Content-Type': 'application/json',
+    setIsTyping(false);
+
+    setMessages([
+      ...chatMessages,
+      {
+        message: streamText,
+        sender: 'APAssist',
       },
-      body: JSON.stringify(apiRequestBody),
-    })
-      .then((data) => {
-        return data.json();
-      })
-      .then((data) => {
-        console.log(data);
-        setMessages([
-          ...chatMessages,
-          {
-            message: data.choices[0].message.content,
-            sender: 'ChatGPT',
-          },
-        ]);
-        setIsTyping(false);
-      });
+    ]);
   }
   return (
-    <div className="h-screen h-[100%]">
+    <div className="h-[100%]">
       <div className="w-full h-[100%]">
         <MainContainer>
           <ChatContainer>
@@ -97,17 +90,35 @@ export default function Assistant() {
               }
             >
               {messages.map((message, i) => {
-                console.log(message);
                 return (
                   <Message
-                    style={{ marginTop: '10px' }}
+                    style={{
+                      marginTop: '10px',
+                    }}
                     key={i}
                     model={message}
-                  />
+                    avatarPosition={message.sender === 'APAssist' ? 'tl' : 'tr'}
+                  >
+                    {message.sender === 'APAssist' ? (
+                      <Avatar
+                        src={apassist_avatar}
+                        status="available"
+                        name="Lilly"
+                      />
+                    ) : (
+                      <Avatar src={student_avatar} name="Lilly" />
+                    )}
+                  </Message>
                 );
               })}
             </MessageList>
-            <MessageInput placeholder="Type message here" onSend={handleSend} />
+            <MessageInput
+              attachButton={false}
+              placeholder="Type your query here"
+              autoFocus
+              onSend={handleSend}
+              sendDisabled={false}
+            />
           </ChatContainer>
         </MainContainer>
       </div>
