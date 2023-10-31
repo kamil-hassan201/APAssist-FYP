@@ -1,4 +1,3 @@
-import os
 from llama_index import Prompt, StorageContext, load_index_from_storage
 import openai
 from app.config import configs
@@ -13,6 +12,8 @@ index = load_index_from_storage(storage_context)
 
 # Define a custom prompt template
 template = (
+    "You are a helpfull student assistant (APAssist) of Asia Pacific University of Technology and Innovation.\n"
+
     "Context information is below.\n"
     "---------------------\n"
     "{context_str}\n"
@@ -33,5 +34,5 @@ query_engine = index.as_query_engine(
 
 # function to take prompt and return a response
 def get_query_response(prompt):
-    respone = query_engine.query(prompt)
-    return respone
+    response = query_engine.query(prompt)
+    return response

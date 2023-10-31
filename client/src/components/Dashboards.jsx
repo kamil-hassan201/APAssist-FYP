@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 import logo from './../assets/logo.png';
-import logo_big from './../assets/logo_big2.png';
 import student_avatar from './../assets/student_avatar.jpg';
 function Dashboard() {
   const [isOpenUsermenu, setIsOpenUsermenu] = useState(false);
@@ -220,7 +219,7 @@ function Dashboard() {
               </NavLink>
             </li>
           </ul>
-          <ul>
+          {/* <ul>
             <li
               style={{
                 bottom: '40px',
@@ -228,7 +227,7 @@ function Dashboard() {
             >
               <img src={logo_big} alt="" />
             </li>
-          </ul>
+          </ul> */}
         </div>
       </aside>
 

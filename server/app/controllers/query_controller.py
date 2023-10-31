@@ -5,10 +5,8 @@ from app.services.query_service import get_query_response
 
 class Query(Resource):
     def post(self):
-        print("post request hit")
         # Get the JSON data from the request
         body = request.get_json()
-        print("body: ", body)
 
         # Check if data is None, which would indicate that parsing failed
         if body is None:
@@ -33,5 +31,7 @@ class Query(Resource):
                 data), status=400, mimetype='application/json')
             return response
 
+        response = get_query_response(prompt).response_gen
+
         # return streaming response
-        return Response(stream_with_context(get_query_response(prompt).response_gen), status=200)
+        return Response(stream_with_context(response), status=200)
