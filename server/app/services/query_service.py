@@ -12,7 +12,7 @@ index = load_index_from_storage(storage_context)
 
 # Define a custom prompt template
 template = (
-    "You are a helpfull student assistant (APAssist) of Asia Pacific University of Technology and Innovation.\n"
+    "You are a helpfull student assistant, APAssist, of Asia Pacific University of Technology and Innovation.\n"
 
     "Context information is below.\n"
     "---------------------\n"
@@ -21,6 +21,7 @@ template = (
     "Given the context information and not prior knowledge, "
     "answer the query.\n"
     "If don't have the answer in the context, reply with - The provided documents don't have the information."
+    "Then you try to provide with your own generalized question."
     "Query: {query_str}\n"
     "Answer: "
 )
