@@ -6,7 +6,8 @@ from app.config import configs
 openai.api_key = configs['openai_api_key']
 
 # load the index
-storage_context = StorageContext.from_defaults(persist_dir='index_data')
+storage_context = StorageContext.from_defaults(
+    persist_dir=configs['knowledge_base_vector_db_path'])
 
 index = load_index_from_storage(storage_context)
 
