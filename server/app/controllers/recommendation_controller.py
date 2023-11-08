@@ -32,7 +32,11 @@ class Recommendation(Resource):
                 data), status=400, mimetype='application/json')
             return response
 
-        response = get_course_recommendation(student_profile)
+        data = get_course_recommendation(student_profile)
+
+        response = {
+            "data": data
+        }
 
         # Convert the Python dictionary to a JSON string
         response_json = json.dumps(response)

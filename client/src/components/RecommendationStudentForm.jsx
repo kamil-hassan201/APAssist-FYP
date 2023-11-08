@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import ChipsContainer from './ChipsContainer';
-import InputWithLabel from './InputWithLabel';
+import ChipsContainer from './shared/ChipsContainer';
+import InputWithLabel from './shared/InputWithLabel';
 import { chips_data } from '../static/chips';
 
-const RecommendationStudentForm = () => {
-  const [selectedCourse, setSelectedCourse] = useState('');
+const RecommendationStudentForm = ({ handleFormSubmit }) => {
+  const [selectedCourse, setSelectedCourse] = useState('Bachalors');
   const [interests, setInterests] = useState('');
   const [careers, setCareers] = useState('');
   const [hobbies, setHobbies] = useState('');
@@ -23,69 +23,77 @@ const RecommendationStudentForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // You can handle the form submission here
-    console.log({ selectedCourse, interests });
+    const student_profile = `
+      Course Level: ${selectedCourse}; \n \n
+      Interest/Skills: ${interests}; \n \n
+      Career Aspirations: ${careers}; \n \n
+      Hobbies/Free time Activities: ${hobbies}; \n
+    `;
+    handleFormSubmit(student_profile);
   };
 
   return (
-    <div className="p-4">
-      <form className="space-y-4">
-        {/* Course Type Select */}
-        <div>
-          <label
-            htmlFor="courseType"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Course Type
-          </label>
-          <select
-            id="courseType"
-            name="courseType"
-            value={selectedCourse}
-            onChange={(e) => setSelectedCourse(e.target.value)}
-            className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-          >
-            <option value="Bachalors">Bachalors (Undergraduate)</option>
-            <option value="Masters">Masters</option>
-          </select>
-        </div>
-        {/* Interests and Skills Input */}
-        <div>
-          <InputWithLabel
-            id="interests"
-            label="Interests and Skills"
-            value={interests}
-            onChange={(e) => setInterests(e.target.value)}
-          />
-          <ChipsContainer
-            chips={chips_data.interests}
-            onChipClick={handleInterestChipClick}
-          />
-        </div>
-        <div>
-          <InputWithLabel
-            id="career"
-            label="Career Aspirations"
-            value={careers}
-            onChange={(e) => setCareers(e.target.value)}
-          />
-          <ChipsContainer
-            chips={chips_data.career_aspirations}
-            onChipClick={handleCareerChipClick}
-          />
-        </div>
-        <div>
-          <InputWithLabel
-            id="hobbies"
-            label="Hobbies and Freetime Activites"
-            value={hobbies}
-            onChange={(e) => setHobbies(e.target.value)}
-          />
-          <ChipsContainer
-            chips={chips_data.hobbies}
-            onChipClick={handleHobbiesChipClick}
-          />
-        </div>
+    <div className="flex flex-col h-full">
+      <p className="text-2xl mb-4">Course Recommendation</p>
+      <form className="flex flex-col h-full justify-between">
+        <section className="space-y-4">
+          {/* Course Level Select */}
+          <div>
+            <label
+              htmlFor="courseType"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Course Type
+            </label>
+            <select
+              id="courseType"
+              name="courseType"
+              value={selectedCourse}
+              onChange={(e) => setSelectedCourse(e.target.value)}
+              className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            >
+              <option value="Bachalors">Bachalors (Undergraduate)</option>
+              <option value="Masters">Masters</option>
+            </select>
+          </div>
+          {/* Interests and Skills Input */}
+          <div>
+            <InputWithLabel
+              id="interests"
+              label="Interests and Skills"
+              value={interests}
+              onChange={(e) => setInterests(e.target.value)}
+            />
+            <ChipsContainer
+              chips={chips_data.interests}
+              onChipClick={handleInterestChipClick}
+            />
+          </div>
+          <div>
+            <InputWithLabel
+              id="career"
+              label="Career Aspirations"
+              value={careers}
+              onChange={(e) => setCareers(e.target.value)}
+            />
+            <ChipsContainer
+              chips={chips_data.career_aspirations}
+              onChipClick={handleCareerChipClick}
+            />
+          </div>
+          <div>
+            <InputWithLabel
+              id="hobbies"
+              label="Hobbies and Freetime Activites"
+              value={hobbies}
+              onChange={(e) => setHobbies(e.target.value)}
+            />
+            <ChipsContainer
+              chips={chips_data.hobbies}
+              onChipClick={handleHobbiesChipClick}
+            />
+          </div>
+        </section>
 
         {/* Submit Button */}
         <div>

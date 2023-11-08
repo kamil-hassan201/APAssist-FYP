@@ -10,13 +10,27 @@ import {
 import { useState } from 'react';
 import apassist_avatar from './../assets/avatar.png';
 import student_avatar from './../assets/student_avatar.jpg';
-import { getQueryResponse } from '../api/query';
+import { getChatResponse } from '../api/chat';
 
-export default function Assistant() {
+export default function RecommendationChat({ course_info }) {
   const [messages, setMessages] = useState([
     {
-      message:
-        "Hello, I'm APAssist, a virtual student service chatbot! How can I help you?",
+      message: `Top 3 courses that best match to your profile are ${course_info.top_3_courses
+        .map((course) => course.course_title)
+        .join(', ')}`,
+      sender: 'APAssist',
+    },
+    {
+      message: 'Among them which one best fit me?',
+      direction: 'outgoing',
+      sender: 'user',
+    },
+    {
+      message: course_info.rationale,
+      sender: 'APAssist',
+    },
+    {
+      message: 'You can ask any further question about this 3 courses!',
       sender: 'APAssist',
     },
   ]);
@@ -41,43 +55,21 @@ export default function Assistant() {
     const prompt = chatMessages[chatMessages.length - 1].message;
 
     // get stream response
-    const response = await getQueryResponse(prompt);
-    const reader = response.body.getReader();
-
-    let streamText = '';
-
-    // eslint-disable-next-line no-constant-condition
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) {
-        break;
-      }
-
-      // Assuming the stream is sending text data
-      const message = new TextDecoder().decode(value);
-      streamText += message;
-      setMessages([
-        ...chatMessages,
-        {
-          message: streamText + '| ',
-          sender: 'APAssist',
-        },
-      ]);
-    }
+    const response = await getChatResponse(prompt);
 
     setIsTyping(false);
 
     setMessages([
       ...chatMessages,
       {
-        message: streamText,
+        message: response,
         sender: 'APAssist',
       },
     ]);
   }
   return (
-    <div className="h-[100%]">
-      <div className="w-full h-[100%]">
+    <div className="h-full">
+      <div className="w-full h-full">
         <MainContainer>
           <ChatContainer>
             <MessageList

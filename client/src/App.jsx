@@ -1,3 +1,4 @@
+import './App.css';
 import './themes/default/main.scss';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Assistant from './components/Assistant';
