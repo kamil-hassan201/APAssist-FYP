@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Assistant from './components/Assistant';
 import Registration from './components/Registration';
 import Dashboard from './components/Dashboards';
+import CourseRecommendation from './components/CourseRecommendation';
 
 const router = createBrowserRouter([
   {
@@ -18,7 +19,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/course-recommendation',
-        element: <div>Hello world! Course Recommendation</div>,
+        element: <CourseRecommendation />,
       },
     ],
   },
