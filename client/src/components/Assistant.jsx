@@ -10,7 +10,7 @@ import {
 import { useState } from 'react';
 import apassist_avatar from './../assets/avatar.png';
 import student_avatar from './../assets/student_avatar.jpg';
-import { getQueryResponse } from '../api/query';
+import { getQueryResponse } from '../api/getQueryResponse';
 
 export default function Assistant() {
   const [messages, setMessages] = useState([
@@ -41,39 +41,44 @@ export default function Assistant() {
     const prompt = chatMessages[chatMessages.length - 1].message;
 
     // get stream response
-    const response = await getQueryResponse(prompt);
-    const reader = response.body.getReader();
+    try {
+      const response = await getQueryResponse(prompt);
+      const reader = response.body.getReader();
 
-    let streamText = '';
+      let streamText = '';
 
-    // eslint-disable-next-line no-constant-condition
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) {
-        break;
+      // eslint-disable-next-line no-constant-condition
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) {
+          break;
+        }
+
+        // Assuming the stream is sending text data
+        const message = new TextDecoder().decode(value);
+        streamText += message;
+        setMessages([
+          ...chatMessages,
+          {
+            message: streamText + '| ',
+            sender: 'APAssist',
+          },
+        ]);
       }
 
-      // Assuming the stream is sending text data
-      const message = new TextDecoder().decode(value);
-      streamText += message;
+      setIsTyping(false);
+
       setMessages([
         ...chatMessages,
         {
-          message: streamText + '| ',
+          message: streamText,
           sender: 'APAssist',
         },
       ]);
+    } catch (error) {
+      alert(error?.message);
+      setIsTyping(false);
     }
-
-    setIsTyping(false);
-
-    setMessages([
-      ...chatMessages,
-      {
-        message: streamText,
-        sender: 'APAssist',
-      },
-    ]);
   }
   return (
     <div className="h-[100%]">

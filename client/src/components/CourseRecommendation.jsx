@@ -9,13 +9,15 @@ export default function CourseRecommendation() {
 
   const { loading, fetchData } = useFetch();
   const [data, setData] = useState(null);
-  const handleFormSubmit = async (student_profile) => {
+  const [studentCharacteristics, setStudentCharacteristics] = useState('');
+  const handleFormSubmit = async (studentProfile) => {
+    setStudentCharacteristics(studentProfile);
     setSubmitted(true);
     try {
-      const result = await fetchData({ student_profile });
+      const result = await fetchData({ student_profile: studentProfile });
       setData(result.data);
     } catch (error) {
-      alert('Sorry, something went wrong!');
+      alert(`Sorry, something went wrong! ${error.message}`);
     }
   };
   return (
@@ -25,7 +27,14 @@ export default function CourseRecommendation() {
         <RecommendationStudentForm handleFormSubmit={handleFormSubmit} />
       ) : (
         <div className="h-full">
-          {loading ? <Spinner /> : <RecommendationChat course_info={data} />}
+          {loading ? (
+            <Spinner label="Analyzing your data, please wait for a moment!" />
+          ) : (
+            <RecommendationChat
+              studentCharacteristics={studentCharacteristics}
+              courseInfo={data}
+            />
+          )}
         </div>
       )}
     </div>

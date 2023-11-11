@@ -14,7 +14,7 @@
     "@chatscope/chat-ui-kit-react": "^1.10.1",
     "langchain": "^0.0.182",
     "llamaindex": "^0.0.30",
-    "openai": "^4.11.1",
+    "openai": "^4.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.16.0",

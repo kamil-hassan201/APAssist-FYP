@@ -10,12 +10,15 @@ import {
 import { useState } from 'react';
 import apassist_avatar from './../assets/avatar.png';
 import student_avatar from './../assets/student_avatar.jpg';
-import { getChatResponse } from '../api/chat';
+import { getChatResponse } from '../api/getChatResponse';
 
-export default function RecommendationChat({ course_info }) {
+export default function RecommendationChat({
+  studentCharacteristics,
+  courseInfo,
+}) {
   const [messages, setMessages] = useState([
     {
-      message: `Top 3 courses that best match to your profile are ${course_info.top_3_courses
+      message: `Top 3 courses that best match to your profile are ${courseInfo.top_3_courses
         .map((course) => course.course_title)
         .join(', ')}`,
       sender: 'APAssist',
@@ -26,7 +29,7 @@ export default function RecommendationChat({ course_info }) {
       sender: 'user',
     },
     {
-      message: course_info.rationale,
+      message: courseInfo.rationale,
       sender: 'APAssist',
     },
     {
@@ -52,20 +55,49 @@ export default function RecommendationChat({ course_info }) {
   };
 
   async function processQuery(chatMessages) {
-    const prompt = chatMessages[chatMessages.length - 1].message;
-
     // get stream response
-    const response = await getChatResponse(prompt);
+    try {
+      const response = await getChatResponse({
+        conversation: chatMessages,
+        top_3_courses: courseInfo.top_3_courses,
+        studentCharacteristics,
+      });
+      const reader = response.body.getReader();
 
-    setIsTyping(false);
+      let streamText = '';
 
-    setMessages([
-      ...chatMessages,
-      {
-        message: response,
-        sender: 'APAssist',
-      },
-    ]);
+      // eslint-disable-next-line no-constant-condition
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) {
+          break;
+        }
+
+        // Assuming the stream is sending text data
+        const token = new TextDecoder().decode(value);
+        streamText += token;
+        setMessages([
+          ...chatMessages,
+          {
+            message: streamText + '| ',
+            sender: 'APAssist',
+          },
+        ]);
+      }
+
+      setIsTyping(false);
+
+      setMessages([
+        ...chatMessages,
+        {
+          message: streamText,
+          sender: 'APAssist',
+        },
+      ]);
+    } catch (error) {
+      alert(error?.message);
+      setIsTyping(false);
+    }
   }
   return (
     <div className="h-full">
