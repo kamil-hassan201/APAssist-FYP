@@ -1,7 +1,5 @@
 from flask import json
 import openai
-import requests
-import sseclient
 from typing import List
 from app.config import configs
 
