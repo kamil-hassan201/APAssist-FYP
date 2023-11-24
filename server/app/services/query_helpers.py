@@ -46,9 +46,19 @@ structured_vector_store_info = VectorStoreInfo(
         MetadataInfo(
             name="category",
             type="str",
-            description=(
-                "Category of the question, one of [Library, Academic_Administration, VisaOrImmigration, IT_Helpdesk, Bursary, Logistic_and_Operation]"
-            ),
+            description=("""
+                    Category of the question, one of [Library, Academic_Administration, VisaOrImmigration, IT_Helpdesk, Bursary, Logistic_and_Operation] \n
+                            Example for each of the category:
+                            I want to remove/delete a paper from Turnitin. What should I do? -> Library; \n
+                            What are the documents needed to support my EC? -> Academic_Administration; \n
+                            what is the procedure of Transfer of Endorsement? -> VisaOrImmigration; \n
+                            How to find out if a lab or classroom is free? -> IT_Helpdesk; \n
+                            How can I pay for Laundry at accomodation? -> IT_Helpdesk; \n
+                            How to make payment via Flywire? -> Bursary; \n
+                            How to check my fee payment details on APSpace?; \n
+                            what is APIIT Car Park – Zone G? -> Logistic_and_Operation; \n
+                """
+                         ),
         ),
 
     ],
