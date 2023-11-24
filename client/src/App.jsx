@@ -5,6 +5,8 @@ import Assistant from './components/Assistant';
 import Registration from './components/Registration';
 import Dashboard from './components/Dashboards';
 import CourseRecommendation from './components/CourseRecommendation';
+import { useState } from 'react';
+import { QueryTypeContext } from './contexts/QueryTypeContext';
 
 const router = createBrowserRouter([
   {
@@ -27,10 +29,12 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+  const [queryType, setQueryType] = useState('simple');
+
   return (
-    <>
+    <QueryTypeContext.Provider value={{ queryType, setQueryType }}>
       <RouterProvider router={router} />
-    </>
+    </QueryTypeContext.Provider>
   );
 }
 

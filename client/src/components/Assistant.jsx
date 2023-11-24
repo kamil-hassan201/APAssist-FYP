@@ -7,12 +7,15 @@ import {
   TypingIndicator,
   Avatar,
 } from '@chatscope/chat-ui-kit-react';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import apassist_avatar from './../assets/avatar.png';
 import student_avatar from './../assets/student_avatar.jpg';
 import { getQueryResponse } from '../api/getQueryResponse';
+import { QueryTypeContext } from '../contexts/QueryTypeContext';
 
 export default function Assistant() {
+  const { queryType } = useContext(QueryTypeContext);
+
   const [messages, setMessages] = useState([
     {
       message:
@@ -42,7 +45,7 @@ export default function Assistant() {
 
     // get stream response
     try {
-      const response = await getQueryResponse(prompt);
+      const response = await getQueryResponse(prompt, queryType);
       const reader = response.body.getReader();
 
       let streamText = '';

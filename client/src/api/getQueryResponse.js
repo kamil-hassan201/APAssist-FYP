@@ -1,6 +1,6 @@
 import { api_urls } from './urls';
 
-export const getQueryResponse = async (prompt) => {
+export const getQueryResponse = async (prompt, queryType = 'simple') => {
   try {
     const response = await fetch(api_urls.query, {
       method: 'POST',
@@ -9,6 +9,7 @@ export const getQueryResponse = async (prompt) => {
       },
       body: JSON.stringify({
         prompt,
+        queryType,
       }),
     });
 

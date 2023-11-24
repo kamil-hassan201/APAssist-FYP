@@ -1,9 +1,12 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 import logo from './../assets/logo.png';
 import student_avatar from './../assets/student_avatar.jpg';
+import { QueryTypeContext } from '../contexts/QueryTypeContext';
+import Info from './shared/Info';
 function Dashboard() {
   const [isOpenUsermenu, setIsOpenUsermenu] = useState(false);
+  const { setQueryType } = useContext(QueryTypeContext);
 
   return (
     <div className="flex h-screen bg-gray-100">
@@ -45,10 +48,24 @@ function Dashboard() {
             </div>
             <div className="flex items-center">
               <div className="flex items-center ml-3">
-                <div>
+                <div className="flex text-white justify-center items-center space-x-10 ">
+                  <Info label="Use structured query only when you feel like The LLM is halucinating" />
+                  <select
+                    id="countries"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    onChange={(e) => {
+                      setQueryType(e.target.value);
+                    }}
+                  >
+                    <option value="simple" selected>
+                      Query type: Simple
+                    </option>
+                    <option value="structured">Query type: Structured</option>
+                  </select>
+
                   <button
                     type="button"
-                    className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+                    className="flex text-sm  w-12 bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
                     aria-expanded="false"
                     data-dropdown-toggle="dropdown-user"
                     onClick={() => setIsOpenUsermenu(!isOpenUsermenu)}
