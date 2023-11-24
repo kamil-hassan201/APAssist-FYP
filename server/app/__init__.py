@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_restful import Api
-from app.config import Config
+import weaviate
+from app.config import Config, configs
 
 from flask_cors import CORS
 
@@ -22,3 +23,14 @@ CORS(app, resources={r'/*': {'origins': '*'}})
 
 # create api object
 api = Api(app, prefix="/api")
+
+# connect with weaviate client
+try:
+    client = weaviate.Client(configs['WEAVIATE_DB_URL'])
+
+    if client.is_ready():
+        print("-----------Weaviate cleint is ready!----------")
+    else:
+        raise Exception("Weaviate client is not ready!")
+except:
+    raise Exception("Weaviate client couldn't be connected!")

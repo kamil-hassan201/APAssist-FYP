@@ -1,4 +1,3 @@
-import os
 from app import app, api
 from app.routes import register_routes
 from app.config import configs

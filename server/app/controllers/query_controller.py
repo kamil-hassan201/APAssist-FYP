@@ -1,6 +1,6 @@
 from flask import Response, json, request, stream_with_context
 from flask_restful import Resource
-from app.services.query_service import get_simple_query_response
+from app.services.query_service import get_simple_query_response, get_structured_query_response
 
 
 class Query(Resource):
@@ -31,7 +31,7 @@ class Query(Resource):
                 data), status=400, mimetype='application/json')
             return response
 
-        response = get_simple_query_response(prompt).response_gen
+        response = get_structured_query_response(prompt).response_gen
 
         # return streaming response
         return Response(stream_with_context(response), status=200)

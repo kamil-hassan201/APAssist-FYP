@@ -1,4 +1,4 @@
-from app.services.query_helpers import simple_query_engine
+from app.services.query_helpers import simple_query_engine, structured_query_engine
 
 
 # function for simple query response
@@ -8,5 +8,5 @@ def get_simple_query_response(prompt):
 
 
 def get_structured_query_response(prompt):
-    response = ''
+    response = structured_query_engine.query(prompt)
     return response

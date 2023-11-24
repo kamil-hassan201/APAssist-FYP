@@ -17,5 +17,6 @@ configs = {
     "kb_path": "data/kb.csv",
     "course_recommendation_vector_cache_path": "vector_db/recommendation/course_recommendations_embeddings_cache.pkl",
     "simple_knowledge_base_vector_db_path": "vector_db/knowledge_base/index_data",
-    "llm_model": "gpt-3.5-turbo"
+    "llm_model": "gpt-3.5-turbo",
+    "structured_index_name": 'KnowledgeBase'
 }

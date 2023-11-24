@@ -41,7 +41,7 @@ except:
 
 # Creating Vector Store
 vector_store = WeaviateVectorStore(
-    weaviate_client=client, index_name="KnowledgeBase"
+    weaviate_client=client, index_name=configs['structured_index_name']
 )
 storage_context = StorageContext.from_defaults(vector_store=vector_store)
 
