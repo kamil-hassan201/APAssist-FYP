@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import infoIcon from './../../assets/info-icon.svg';
 
-function Info({ label }) {
+function Info({ label, width = '40px' }) {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -9,7 +9,7 @@ function Info({ label }) {
       <img
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        width="40px"
+        width={width}
         src={infoIcon}
       />
 

@@ -2,12 +2,14 @@ import { useState } from 'react';
 import ChipsContainer from './shared/ChipsContainer';
 import InputWithLabel from './shared/InputWithLabel';
 import { chips_data } from '../static/chips';
+import Info from './shared/Info';
 
 const RecommendationStudentForm = ({ handleFormSubmit }) => {
   const [selectedCourse, setSelectedCourse] = useState('Bachalors');
   const [interests, setInterests] = useState('');
   const [careers, setCareers] = useState('');
   const [hobbies, setHobbies] = useState('');
+  const [others, setOthers] = useState('');
 
   const handleInterestChipClick = (chip) => {
     setInterests(interests ? `${interests}, ${chip}` : chip);
@@ -34,9 +36,16 @@ const RecommendationStudentForm = ({ handleFormSubmit }) => {
 
   return (
     <div className="flex flex-col h-full">
-      <p className="text-2xl mb-4">Course Recommendation</p>
-      <form className="flex flex-col h-full justify-between">
-        <section className="space-y-4">
+      <div className="mb-4 flex items-center justify-center font-bold">
+        <p className="text-2xl">Course Recommendation &nbsp;</p>
+        <Info
+          width="20px"
+          label="Try to key in as many information as possible for better result!"
+        />
+      </div>
+
+      <form className="flex flex-col h-full justify-normal ">
+        <section className="space-y-4 ">
           {/* Course Level Select */}
           <div>
             <label
@@ -69,6 +78,7 @@ const RecommendationStudentForm = ({ handleFormSubmit }) => {
               onChipClick={handleInterestChipClick}
             />
           </div>
+          {/* Career Aspiration Input */}
           <div>
             <InputWithLabel
               id="career"
@@ -81,6 +91,7 @@ const RecommendationStudentForm = ({ handleFormSubmit }) => {
               onChipClick={handleCareerChipClick}
             />
           </div>
+          {/* Hobbies Input */}
           <div>
             <InputWithLabel
               id="hobbies"
@@ -93,10 +104,19 @@ const RecommendationStudentForm = ({ handleFormSubmit }) => {
               onChipClick={handleHobbiesChipClick}
             />
           </div>
+          {/* Others Input */}
+          <div>
+            <InputWithLabel
+              id="others"
+              label="Others (Anything you want to say about yourself)"
+              value={others}
+              onChange={(e) => setOthers(e.target.value)}
+            />
+          </div>
         </section>
 
         {/* Submit Button */}
-        <div>
+        <div className="mt-10 pb-6">
           <button
             onClick={handleSubmit}
             disabled={!interests && !hobbies && !careers}
