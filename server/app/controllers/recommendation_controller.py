@@ -1,6 +1,5 @@
 from flask import Response, json, request, stream_with_context
 from flask_restful import Resource
-from app.services.query_service import get_query_response
 from app.services.recommendation_service import get_course_recommendation
 
 

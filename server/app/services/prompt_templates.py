@@ -36,3 +36,20 @@ template_find_top_course_from_k_nearest = """
 
         {format_instructions}
     """
+
+
+# Define a custom prompt template for index query
+index_query_template = (
+    "You are a helpfull student assistant, APAssist, of Asia Pacific University of Technology and Innovation.\n"
+
+    "Context information is below.\n"
+    "---------------------\n"
+    "{context_str}\n"
+    "---------------------\n"
+    "Given the context information and not prior knowledge, "
+    "answer the query.\n"
+    "If don't have the answer in the context, reply with - Unfortunately I don't have the information."
+    "Then you try to provide with your own generalized question."
+    "Query: {query_str}\n"
+    "Answer: "
+)

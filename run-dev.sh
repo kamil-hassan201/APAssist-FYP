@@ -1,5 +1,14 @@
 #!/bin/bash
 
+# Kill process on port 5000 if exists
+PORT=5000
+PID=$(lsof -t -i:$PORT)
+if [ -n "$PID" ]; then
+    echo "Killing process on port $PORT..."
+    kill $PID
+    sleep 2 # Give it some time to release the port
+fi
+
 # Navigate to server directory
 cd server
 
