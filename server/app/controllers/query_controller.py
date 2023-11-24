@@ -20,6 +20,7 @@ class Query(Resource):
 
         # Access prompt in the data by key
         prompt = body.get('prompt', None)
+        query_type = body.get('queryType', 'simple')
 
         # Check if prompt is None, which would indicate that parsing failed
         if prompt is None:
@@ -31,7 +32,10 @@ class Query(Resource):
                 data), status=400, mimetype='application/json')
             return response
 
-        response = get_structured_query_response(prompt).response_gen
+        if query_type == 'structured':
+            response = get_structured_query_response(prompt).response_gen
+        else:
+            response = get_simple_query_response(prompt).response_gen
 
         # return streaming response
         return Response(stream_with_context(response), status=200)
