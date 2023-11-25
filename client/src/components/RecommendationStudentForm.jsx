@@ -37,7 +37,7 @@ const RecommendationStudentForm = ({ handleFormSubmit }) => {
   return (
     <div className="flex flex-col h-full">
       <div className="mb-4 flex items-center justify-center font-bold">
-        <p className="text-2xl">Course Recommendation &nbsp;</p>
+        <p className="text-2xl  text-gray-700">Course Recommendation &nbsp;</p>
         <Info
           width="20px"
           label="Try to key in as many information as possible for better result!"
