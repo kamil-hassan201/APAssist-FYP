@@ -44,7 +44,7 @@ const RecommendationStudentForm = ({ handleFormSubmit }) => {
         />
       </div>
 
-      <form className="flex flex-col h-full justify-normal ">
+      <form className="flex flex-col h-full justify-between">
         <section className="space-y-4 ">
           {/* Course Level Select */}
           <div>
