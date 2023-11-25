@@ -55,8 +55,9 @@ structured_vector_store_info = VectorStoreInfo(
                             How to find out if a lab or classroom is free? -> IT_Helpdesk; \n
                             How can I pay for Laundry at accomodation? -> IT_Helpdesk; \n
                             How to make payment via Flywire? -> Bursary; \n
-                            How to check my fee payment details on APSpace?; \n
+                            How to check my fee payment details on APSpace? -> IT_Helpdesk; \n
                             what is APIIT Car Park – Zone G? -> Logistic_and_Operation; \n
+                            Anything related to APCard or APKey -> IT_Helpdesk
                 """
                          ),
         ),

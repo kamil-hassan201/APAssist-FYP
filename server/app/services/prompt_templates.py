@@ -47,7 +47,7 @@ index_query_template = (
     "{context_str}\n"
     "---------------------\n"
     "Given the context information and not prior knowledge, "
-    "answer the query.\n"
+    "answer the query with as details as possible.\n"
     "If don't have the answer in the context, reply with - Unfortunately I don't have the information."
     "Then you try to provide with your own generalized question."
     "Query: {query_str}\n"
