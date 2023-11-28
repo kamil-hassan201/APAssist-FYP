@@ -1,6 +1,6 @@
 from flask import Response, json, request, stream_with_context
 from flask_restful import Resource
-from app.services.query_service import get_simple_query_response, get_structured_query_response
+from app.services.query import get_chat_response, get_simple_query_response, get_structured_query_response
 
 
 class Query(Resource):
@@ -19,8 +19,16 @@ class Query(Resource):
             return response
 
         # Access prompt in the data by key
-        prompt = body.get('prompt', None)
-        query_type = body.get('queryType', 'simple')
+        chatMessages = body.get('chatMessages', None)
+
+        if chatMessages is None:
+            response = Response(response=json.dumps(
+                data), status=400, mimetype='application/json')
+            return response
+
+        prompt = chatMessages[-1]['message']
+
+        query_type = body.get('queryType', 'chat')
 
         # Check if prompt is None, which would indicate that parsing failed
         if prompt is None:
@@ -34,8 +42,10 @@ class Query(Resource):
 
         if query_type == 'structured':
             response = get_structured_query_response(prompt).response_gen
-        else:
+        elif query_type == 'simple':
             response = get_simple_query_response(prompt).response_gen
+        else:
+            response = get_chat_response(chatMessages, prompt).response_gen
 
         # return streaming response
         return Response(stream_with_context(response), status=200)

@@ -61,9 +61,10 @@ function Dashboard() {
                           setQueryType(e.target.value);
                         }}
                       >
-                        <option value="simple" selected>
-                          Query type: Simple
+                        <option value="chat" selected>
+                          Query type: Chat
                         </option>
+                        <option value="simple">Query type: Simple</option>
                         <option value="structured">
                           Query type: Structured
                         </option>

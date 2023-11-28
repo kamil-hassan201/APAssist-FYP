@@ -39,7 +39,7 @@ template_find_top_course_from_k_nearest = """
 
 
 # Define a custom prompt template for index query
-index_query_template = (
+context_query_template = (
     "You are a helpfull student assistant, APAssist, of Asia Pacific University of Technology and Innovation.\n"
 
     "Context information is below.\n"
@@ -53,3 +53,19 @@ index_query_template = (
     "Query: {query_str}\n"
     "Answer: "
 )
+
+
+# Define a custom prompt template for condense chat
+condense_question_prompt_template = """\
+Given a conversation (between Human and Assistant) and a follow up message from Human, \
+rewrite the message to be a standalone question that captures all relevant context \
+from the conversation.
+
+<Chat History>
+{chat_history}
+
+<Follow Up Message>
+{question}
+
+<Standalone question>
+"""

@@ -46,11 +46,11 @@ export default function Assistant() {
   };
 
   async function processQuery(chatMessages) {
-    const prompt = chatMessages[chatMessages.length - 1].message;
+    // const prompt = chatMessages[chatMessages.length - 1].message;
 
     // get stream response
     try {
-      const response = await getQueryResponse(prompt, queryType);
+      const response = await getQueryResponse(chatMessages, queryType);
       const reader = response.body.getReader();
 
       let streamText = '';

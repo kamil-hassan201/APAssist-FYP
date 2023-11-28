@@ -4,33 +4,7 @@ from llama_index.vector_stores.types import MetadataInfo, VectorStoreInfo
 from llama_index.indices.vector_store.retrievers import (
     VectorIndexAutoRetriever,
 )
-from llama_index import Prompt, StorageContext, load_index_from_storage
-from app.config import configs
-from app.services.prompt_templates import index_query_template
-from llama_index import VectorStoreIndex
-from llama_index.vector_stores import WeaviateVectorStore
-from app import client
-
-# load the index
-storage_context = StorageContext.from_defaults(
-    persist_dir=configs['simple_knowledge_base_vector_db_path'])
-
-simple_index = load_index_from_storage(storage_context)
-
-
-simple_qa_template = Prompt(index_query_template)
-
-# create the query engine
-simple_query_engine = simple_index.as_query_engine(
-    streaming=True, text_qa_template=simple_qa_template)
-
-
-# retrieve structured vector store
-structured_vector_store = WeaviateVectorStore(
-    weaviate_client=client, index_name=configs['structured_index_name']
-)
-
-structured_index = VectorStoreIndex.from_vector_store(structured_vector_store)
+from app.services.query.helpers import structured_index, qa_prompt_template
 
 # declaring schema for Structured vector store
 structured_vector_store_info = VectorStoreInfo(
@@ -72,7 +46,7 @@ structured_retriever = VectorIndexAutoRetriever(
 
 # configure response synthesizer
 response_synthesizer = get_response_synthesizer(
-    streaming=True, response_mode=ResponseMode.COMPACT, text_qa_template=simple_qa_template)
+    streaming=True, response_mode=ResponseMode.COMPACT, text_qa_template=qa_prompt_template)
 
 # create structured query engine
 structured_query_engine = RetrieverQueryEngine(

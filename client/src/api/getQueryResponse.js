@@ -1,6 +1,6 @@
 import { api_urls } from './urls';
 
-export const getQueryResponse = async (prompt, queryType = 'simple') => {
+export const getQueryResponse = async (chatMessages, queryType = 'chat') => {
   try {
     const response = await fetch(api_urls.query, {
       method: 'POST',
@@ -8,7 +8,7 @@ export const getQueryResponse = async (prompt, queryType = 'simple') => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        prompt,
+        chatMessages,
         queryType,
       }),
     });

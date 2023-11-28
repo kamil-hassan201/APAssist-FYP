@@ -29,7 +29,7 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  const [queryType, setQueryType] = useState('simple');
+  const [queryType, setQueryType] = useState('chat');
 
   return (
     <QueryTypeContext.Provider value={{ queryType, setQueryType }}>
