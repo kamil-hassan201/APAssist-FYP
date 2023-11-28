@@ -16,7 +16,7 @@ import { QuickReplies } from './shared/QuickReply';
 
 export default function Assistant() {
   const { queryType } = useContext(QueryTypeContext);
-
+  const [isTyping, setIsTyping] = useState(false);
   const [messages, setMessages] = useState([
     {
       message:
@@ -24,7 +24,6 @@ export default function Assistant() {
       sender: 'APAssist',
     },
   ]);
-  const [isTyping, setIsTyping] = useState(false);
 
   const handleSend = async (message) => {
     const newMessage = {
@@ -46,9 +45,6 @@ export default function Assistant() {
   };
 
   async function processQuery(chatMessages) {
-    // const prompt = chatMessages[chatMessages.length - 1].message;
-
-    // get stream response
     try {
       const response = await getQueryResponse(chatMessages, queryType);
       const reader = response.body.getReader();
@@ -139,9 +135,10 @@ export default function Assistant() {
             <MessageInput
               attachButton={false}
               placeholder="Type your query here"
-              autoFocus
+              // autoFocus={true}
               onSend={handleSend}
-              sendDisabled={false}
+              sendDisabled={isTyping}
+              disabled={isTyping}
             />
           </ChatContainer>
         </MainContainer>

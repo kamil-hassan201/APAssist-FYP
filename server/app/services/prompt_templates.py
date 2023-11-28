@@ -58,7 +58,7 @@ context_query_template = (
 # Define a custom prompt template for condense chat
 condense_question_prompt_template = """\
 Given a conversation (between Human and Assistant) and a follow up message from Human, \
-rewrite the message to be a standalone question that captures all relevant context \
+rewrite the message to be a standalone question on behalf of the Human that captures all relevant context \
 from the conversation.
 
 <Chat History>
