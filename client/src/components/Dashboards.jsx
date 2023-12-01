@@ -53,7 +53,16 @@ function Dashboard() {
                 <div className="flex text-white justify-center items-center space-x-10 ">
                   {!location.pathname.includes('course-recommendation') && (
                     <>
-                      <Info label="Use structured query only when you feel like The LLM is halucinating" />
+                      <Info
+                        label={
+                          <p
+                            dangerouslySetInnerHTML={{
+                              __html:
+                                '<strong>Chat</strong> - Use to ask follow up questions. <br/> <strong>Simple</strong> - Use simple when you want to ask stand alone question. <br/> <strong>Structured</strong> - Use structured query only when you feel like The LLM is hallucinating',
+                            }}
+                          />
+                        }
+                      />
                       <select
                         id="countries"
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"

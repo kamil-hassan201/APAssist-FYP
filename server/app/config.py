@@ -18,5 +18,6 @@ configs = {
     "course_recommendation_vector_cache_path": "vector_db/recommendation/course_characteristics_embeddings_cache.pkl",
     "simple_knowledge_base_vector_db_path": "vector_db/knowledge_base/index_data",
     "llm_model": "gpt-3.5-turbo",
-    "structured_index_name": 'KnowledgeBase'
+    "structured_index_name": 'KnowledgeBase',
+    "recommendation_index_name": 'CourseCharacteristics'
 }

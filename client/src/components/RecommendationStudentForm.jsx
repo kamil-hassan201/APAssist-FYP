@@ -30,6 +30,7 @@ const RecommendationStudentForm = ({ handleFormSubmit }) => {
       Interest/Skills: ${interests}; \n \n
       Career Aspirations: ${careers}; \n \n
       Hobbies/Free time Activities: ${hobbies}; \n
+      Important Note: ${others}; \n
     `;
     handleFormSubmit(student_profile);
   };

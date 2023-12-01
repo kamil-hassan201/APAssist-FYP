@@ -19,7 +19,7 @@ python run.py &
 SERVER_PID=$!
 
 # Give the server a few seconds to start up
-sleep 5
+sleep 7
 
 # Check if the server process is still running
 if ps -p $SERVER_PID > /dev/null; then

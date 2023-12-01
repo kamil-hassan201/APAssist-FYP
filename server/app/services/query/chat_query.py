@@ -24,6 +24,7 @@ def chat_query(chat_history, prompt):
         query_engine=simple_query_engine,
         condense_question_prompt=condense_question_prompt,
         chat_history=chat_history,
+        verbose=True
     )
     streaming_response = chat_engine.stream_chat(prompt)
     return streaming_response

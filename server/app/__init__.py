@@ -26,7 +26,12 @@ api = Api(app, prefix="/api")
 
 # connect with weaviate client
 try:
-    client = weaviate.Client(configs['WEAVIATE_DB_URL'])
+    client = weaviate.Client(
+        url=configs['WEAVIATE_DB_URL'],
+        additional_headers={
+            "X-OpenAI-Api-Key": configs['openai_api_key']
+        }
+    )
 
     if client.is_ready():
         print("-----------Weaviate cleint is ready!----------")
