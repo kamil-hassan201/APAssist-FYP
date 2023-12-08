@@ -7,6 +7,7 @@ import Dashboard from './components/Dashboards';
 import CourseRecommendation from './components/CourseRecommendation';
 import { useState } from 'react';
 import { QueryTypeContext } from './contexts/QueryTypeContext';
+import { FormSubmittedContext } from './contexts/FormSubmittedContext';
 
 const router = createBrowserRouter([
   {
@@ -30,11 +31,17 @@ const router = createBrowserRouter([
 
 function App() {
   const [queryType, setQueryType] = useState('chat');
+  const [recommendationFormSubmitted, setRecommendationFormSubmitted] =
+    useState(false);
 
   return (
-    <QueryTypeContext.Provider value={{ queryType, setQueryType }}>
-      <RouterProvider router={router} />
-    </QueryTypeContext.Provider>
+    <FormSubmittedContext.Provider
+      value={{ recommendationFormSubmitted, setRecommendationFormSubmitted }}
+    >
+      <QueryTypeContext.Provider value={{ queryType, setQueryType }}>
+        <RouterProvider router={router} />
+      </QueryTypeContext.Provider>
+    </FormSubmittedContext.Provider>
   );
 }
 

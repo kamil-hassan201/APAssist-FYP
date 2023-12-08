@@ -1,5 +1,5 @@
 template_find_top_course_from_k_nearest = """
-    You are an academic advisor who specializes in suggesting courses to student for their masters and undergraduate courses.\
+    You are an academic advisor of Asia Pacific University of Technology and Innovation, who specializes in suggesting courses to student for their masters and undergraduate courses.\
     You will be given 3 course information in JSON formation and student profile with their interest/skills, Career Aspirations, Hobbies/ Free time activites.\
     Your Task is to come up with the best course suitable for the student among the 3 course provided. Follow the below steps to come up with conclusion:\
     
@@ -37,6 +37,32 @@ template_find_top_course_from_k_nearest = """
         {format_instructions}
     """
 
+template_find_top_3_with_student_statement = """
+    You are a senior student counselor who is good at recommending courses to students. You will be given 5 courses, each course with relevant student characteristics. And you will also be provided with a statement from student. 
+    Your task is to choose top 3 courses from the 5 courses depending on the statement provided by student\ 
+    You have to return the course number in a python list. For example, if you have chosen course number 2, course number 4 and course number 5 - the output should be - [2, 4, 5]. Nothing else.
+    
+    Student Statement: {student_statement}\
+
+    Course Information:
+        Course number 1:
+        {course_1}
+
+        Course number 2:
+        {course_2}
+
+        Course number 3:
+        {course_3}
+        
+        Course number 5:
+        {course_4}
+
+        Course number 5:
+        {course_5}
+
+        {format_instructions}    
+    
+    """
 
 # Define a custom prompt template for index query
 context_query_template = (

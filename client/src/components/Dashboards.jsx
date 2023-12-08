@@ -4,14 +4,18 @@ import logo from './../assets/logo.png';
 import student_avatar from './../assets/student_avatar.jpg';
 import { QueryTypeContext } from '../contexts/QueryTypeContext';
 import Info from './shared/Info';
+import { FormSubmittedContext } from '../contexts/FormSubmittedContext';
+import RefreshIcon from './../assets/refresh-icon.svg';
+
 function Dashboard() {
   const [isOpenUsermenu, setIsOpenUsermenu] = useState(false);
   const { setQueryType } = useContext(QueryTypeContext);
+  const { setRecommendationFormSubmitted } = useContext(FormSubmittedContext);
 
   const location = useLocation();
 
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex h-screen ">
       <nav className="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
         <div className="px-3 py-3 lg:px-5 lg:pl-3">
           <div className="flex items-center justify-between">
@@ -51,7 +55,7 @@ function Dashboard() {
             <div className="flex items-center">
               <div className="flex items-center ml-3">
                 <div className="flex text-white justify-center items-center space-x-10 ">
-                  {!location.pathname.includes('course-recommendation') && (
+                  {!location.pathname.includes('course-recommendation') ? (
                     <>
                       <Info
                         label={
@@ -79,6 +83,15 @@ function Dashboard() {
                         </option>
                       </select>
                     </>
+                  ) : (
+                    <button
+                      className="py-2 rounded inline-flex items-center hover:scale-105 "
+                      onClick={() => {
+                        setRecommendationFormSubmitted(false);
+                      }}
+                    >
+                      <img src={RefreshIcon} width={22} alt="Refresh Icon" />
+                    </button>
                   )}
 
                   <button

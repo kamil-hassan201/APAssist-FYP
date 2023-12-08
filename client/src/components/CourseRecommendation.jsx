@@ -1,11 +1,14 @@
-import { useEffect, useState } from 'react';
-import useFetch from '../api/useFetch';
+import { useContext, useEffect, useState } from 'react';
+import useFetch from '../api/useRecommendationFetch';
 import RecommendationStudentForm from './RecommendationStudentForm';
 import Spinner from './shared/Spinner';
 import RecommendationChat from './RecommendationChat';
+import { FormSubmittedContext } from '../contexts/FormSubmittedContext';
 
 export default function CourseRecommendation() {
-  const [submitted, setSubmitted] = useState(false);
+  const { recommendationFormSubmitted, setRecommendationFormSubmitted } =
+    useContext(FormSubmittedContext);
+
   const { loading, fetchData } = useFetch();
   const [data, setData] = useState(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -17,12 +20,12 @@ export default function CourseRecommendation() {
     }
   }, [loading]);
 
-  const handleFormSubmit = async (studentProfile) => {
-    setStudentCharacteristics(studentProfile);
-    setSubmitted(true);
+  const handleFormSubmit = async (properties) => {
+    setStudentCharacteristics(properties.student_profile);
+    setRecommendationFormSubmitted(true);
     setIsVisible(false);
     try {
-      const result = await fetchData({ student_profile: studentProfile });
+      const result = await fetchData(properties);
       setData(result.data);
     } catch (error) {
       alert(`Sorry, something went wrong! ${error.message}`);
@@ -31,7 +34,7 @@ export default function CourseRecommendation() {
 
   return (
     <div className="h-full">
-      {!submitted ? (
+      {!recommendationFormSubmitted ? (
         <RecommendationStudentForm handleFormSubmit={handleFormSubmit} />
       ) : (
         <div className="h-full">

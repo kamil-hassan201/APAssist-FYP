@@ -5,7 +5,7 @@ import { chips_data } from '../static/chips';
 import Info from './shared/Info';
 
 const RecommendationStudentForm = ({ handleFormSubmit }) => {
-  const [selectedCourse, setSelectedCourse] = useState('Bachalors');
+  const [selectedCourse, setSelectedCourse] = useState('undergraduate');
   const [interests, setInterests] = useState('');
   const [careers, setCareers] = useState('');
   const [hobbies, setHobbies] = useState('');
@@ -26,13 +26,17 @@ const RecommendationStudentForm = ({ handleFormSubmit }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const student_profile = `
-      Course Level: ${selectedCourse}; \n \n
       Interest/Skills: ${interests}; \n \n
       Career Aspirations: ${careers}; \n \n
       Hobbies/Free time Activities: ${hobbies}; \n
       Important Note: ${others}; \n
     `;
-    handleFormSubmit(student_profile);
+    const properties = {
+      student_profile: student_profile,
+      student_statement: `Student Said: ${others}`,
+      course_type: selectedCourse,
+    };
+    handleFormSubmit(properties);
   };
 
   return (
@@ -62,8 +66,8 @@ const RecommendationStudentForm = ({ handleFormSubmit }) => {
               onChange={(e) => setSelectedCourse(e.target.value)}
               className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             >
-              <option value="Bachalors">Bachalors (Undergraduate)</option>
-              <option value="Masters">Masters</option>
+              <option value="undergraduate">Bachelor (Undergraduate)</option>
+              <option value="masters">Masters</option>
             </select>
           </div>
           {/* Interests and Skills Input */}
@@ -109,7 +113,7 @@ const RecommendationStudentForm = ({ handleFormSubmit }) => {
           <div>
             <InputWithLabel
               id="others"
-              label="Others (Anything you want to say about yourself)"
+              label="Important Note (This has a very high weight in your recommendation, If you don't have any, keep it blank)"
               value={others}
               onChange={(e) => setOthers(e.target.value)}
             />
