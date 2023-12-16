@@ -14,7 +14,7 @@ def chat_query(chat_history, prompt):
     chat_history = chat_history[:-1]
     chat_history = [
         ChatMessage(
-            role=MessageRole.ASSISTANT if msg['sender'] == 'APAssist' else MessageRole.USER,
+            role=MessageRole.ASSISTANT if msg['role'] == 'APAssist' else MessageRole.USER,
             content=msg['message']
         )
         for msg in chat_history

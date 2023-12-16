@@ -36,7 +36,7 @@ def get_messages(conversation: List, top_3_courses: List, studentCharacteristics
 
         newMessage['content'] = message['message']
 
-        if message['sender'] == 'user':
+        if message['role'] == 'user':
             newMessage['role'] = 'user'
         else:
             newMessage['role'] = 'assistant'

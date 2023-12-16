@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+	--color-text: 255 255 255;
+	--color-background: 220 220 186;
+	--color-primary: 255 231 102;
+	--color-primary-content: 30 30 30;
+	--color-primary-focus: 243 205 0;
+	--color-secondary: 255 255 172;
+	--color-secondary-content: 0 0 0;
+	--color-accent: 114 114 105;
+	--color-accent-content: 217 217 217;
+
+	--color-accent-2: 65 105 225;
+	--color-accent-2-content: 255 255 255;
+	--color-accent-2-focus: 18 53 158;
+	--color-error: 255 65 54;
+	--color-error-focus: 204 32 22;
+	--color-warning: 255 165 0;
+	--color-success: 46 204 64;
+}

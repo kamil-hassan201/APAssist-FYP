@@ -85,7 +85,7 @@ context_query_template = (
 condense_question_prompt_template = """\
 Given a conversation (between Human and Assistant) and a follow up message from Human, \
 rewrite the message to be a standalone question on behalf of the Human that captures all relevant context \
-from the conversation.
+from the conversation. If you think the question doesn't depend on the chat history, just reply with the follow up message given to you. \
 
 <Chat History>
 {chat_history}
