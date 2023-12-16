@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { isRefresh } from './recommendationStore';
 	import type { RecommendationProps } from '$/lib/types';
 	import { PUBLIC_BASE_API_URL } from '$env/static/public';
 	import RecommendationForm from './RecommendationForm.svelte';
@@ -11,6 +12,14 @@
 	let formSubmitted: boolean = false;
 	let courseInfo: { rationale: string; top_3_courses: any[] };
 	let studentCharacteristics: string;
+
+	const refresh = (e: any) => {
+		isFetching = false;
+		formSubmitted = false;
+		studentCharacteristics = '';
+	};
+
+	$: refresh($isRefresh);
 
 	const handleFormSubmit = async (properties: RecommendationProps) => {
 		studentCharacteristics = properties?.student_profile;
@@ -56,7 +65,7 @@
 				<Spinner label="Analyzing your data, please wait for a moment!" />
 			</div>
 		{:else}
-			<div in:fade={{ duration: 1500 }}>
+			<div in:fade={{ duration: 1000 }}>
 				<div class="grid h-[calc(100vh-4.25rem)]">
 					<RecommendationChat {studentCharacteristics} {courseInfo} />
 				</div>

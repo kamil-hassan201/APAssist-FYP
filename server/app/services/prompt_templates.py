@@ -82,10 +82,14 @@ context_query_template = (
 
 
 # Define a custom prompt template for condense chat
-condense_question_prompt_template = """\
+condense_question_prompt_template = """
 Given a conversation (between Human and Assistant) and a follow up message from Human, \
-rewrite the message to be a standalone question on behalf of the Human that captures all relevant context \
-from the conversation. If you think the question doesn't depend on the chat history, just reply with the follow up message given to you. \
+rewrite (if needed) the follow message to be a standalone question on behalf of the Human that captures all relevant context \
+from the conversation.\ 
+If you think the question doesn't depend on the chat history, just reply with the follow up message given to you. \
+
+Remember the question should be rewritten only if the follow up message from human is not a stand alone question. Don't need to rewrite \
+if the follow up message is conversation ending statements.
 
 <Chat History>
 {chat_history}

@@ -1,10 +1,10 @@
 <script lang="ts">
 	import ChipsContainer from '$/lib/components/Chips/ChipsContainer.svelte';
 	import InputWithLabel from '$/lib/components/Input/InputWithLabel.svelte';
-	import Tooltip from '$/lib/components/Tooltip.svelte';
 	import { chips_data } from '$/lib/statics/chips';
 	import type { RecommendationProps } from '$/lib/types';
 	import { OverlayScrollbarsComponent } from 'overlayscrollbars-svelte';
+	import { isRefresh } from './recommendationStore';
 
 	export let handleFormSubmit: (properties: RecommendationProps) => void;
 
@@ -13,6 +13,16 @@
 	let careers = '';
 	let hobbies = '';
 	let others = '';
+
+	const setDefaults = (e: any) => {
+		selectedCourse = 'undergraduate';
+		interests = '';
+		careers = '';
+		hobbies = '';
+		others = '';
+	};
+
+	$: setDefaults($isRefresh);
 
 	const handleInterestChipClick = (chip: string) => {
 		interests = interests ? `${interests}, ${chip}` : chip;
