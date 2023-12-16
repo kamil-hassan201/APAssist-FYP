@@ -7,7 +7,7 @@ import {
 	PUBLIC_FIREBASE_APP_ID
 } from '$env/static/public';
 
-import { initializeApp, getApps } from 'firebase/app';
+import { initializeApp, getApps, type FirebaseApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 
 const firebaseConfig = {
@@ -20,7 +20,7 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-let firebaseApp;
+let firebaseApp: FirebaseApp | undefined;
 
 if (!getApps().length) {
 	firebaseApp = initializeApp(firebaseConfig);

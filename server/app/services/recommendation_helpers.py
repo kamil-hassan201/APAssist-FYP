@@ -99,6 +99,9 @@ def get_top_3_from_top_5_courses(student_statement, course_info_with_characteris
 
 # function for getting top K nearest courses with student profile
 def get_top_k_courses_with_characteristics(student_profile: str, course_type: str, k=5):
+
+    print("Student pro: ", student_profile)
+    print("courseType: ", course_type)
     response = (
         wv_client.query
         .get("CourseCharacteristics", ["course_title", "relevant_student_profile", "index"])
@@ -111,5 +114,7 @@ def get_top_k_courses_with_characteristics(student_profile: str, course_type: st
         .with_limit(k)
         .do()
     )
+
+    print("response: ", response)
 
     return response['data']['Get']['CourseCharacteristics']

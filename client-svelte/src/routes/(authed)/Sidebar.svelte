@@ -5,6 +5,7 @@
 	import { page } from '$app/stores';
 	import AssistantIcon from '$/lib/icons/AssistantIcon.svelte';
 	import UserDetails from './UserDetails.svelte';
+	import {authUser} from "$lib/authStore"
 
 	const links = [
 		{
@@ -69,6 +70,6 @@
 
 		<hr class="border-[#DDD] data-dark:border-[#454545]" />
 
-		<UserDetails username="Kamil Hassan" />
+		<UserDetails username={$authUser?.displayName} />
 	</div>
 </section>

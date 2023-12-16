@@ -9,12 +9,14 @@
 	export let type: HTMLButtonAttributes['type'] = undefined;
 	export let variant: VariantProps<typeof buttonVariants>['variant'] = 'default';
 	export let size: VariantProps<typeof buttonVariants>['size'] = 'default';
+	export let disabled: boolean = false;
 </script>
 
 <button
 	tabindex="0"
 	{...$$restProps}
 	{type}
+	{disabled}
 	class={cn(buttonVariants({ variant, size, className }))}
 	on:click
 	on:dblclick

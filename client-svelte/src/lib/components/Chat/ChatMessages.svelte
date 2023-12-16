@@ -5,12 +5,17 @@
 	import type { Message } from '$/lib/types';
 	import { browser } from '$app/environment';
 	import { tick } from 'svelte';
+	import QuickMessages from './QuickMessages.svelte';
 
 	export let streamText: string = '| ';
 	export let isFetching: boolean = false;
 
 	export let messages: Message[];
 	export let fetchResponse: (prompt: string) => void;
+
+	const handleReplySelect = (reply: string) => {
+		fetchResponse(reply);
+	};
 
 	let osRef: OverlayScrollbarsComponent;
 
@@ -63,6 +68,17 @@
 					<ChatMessage message={streamText} role="APAssist" />
 				{/if}
 			</div>
+			{#if messages.length <= 1}
+				<QuickMessages
+					replies={[
+						'I have lost my APCard, what should I do?',
+						'How to pay for the Laundry service at Accomodation?',
+						'I cannot sign in using APKey!',
+						'I am outside malaysia, how can I transfer my fees?'
+					]}
+					onReplySelect={handleReplySelect}
+				/>
+			{/if}
 		</OverlayScrollbarsComponent>
 
 		<ChatInput {isFetching} {fetchResponse} />

@@ -35,7 +35,7 @@
 	>
 		<div class="avatar placeholder pointer-events-none select-none">
 			<div class="bg-gray-700 rounded-full h-11 w-11 flex items-center justify-center">
-				<span class="text-xl text-white uppercase">{username?.charAt(0)}</span>
+				<span class="text-xl text-white uppercase">{username?.charAt(0) || "S"}</span>
 			</div>
 		</div>
 
@@ -44,7 +44,7 @@
 				$showDock ? 'opacity-100 w-full' : 'opacity-0 w-0 pointer-events-none'
 			} transition-[opacity,_width] duration-300`}
 		>
-			<span class="break-all line-clamp-1">{username}</span>
+			<span class="break-all line-clamp-1">{username || "Student"}</span>
 			<span class="text-sm">Student</span>
 		</div>
 
