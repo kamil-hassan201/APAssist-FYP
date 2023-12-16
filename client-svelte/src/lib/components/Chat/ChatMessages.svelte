@@ -14,7 +14,7 @@
 
 	let osRef: OverlayScrollbarsComponent;
 
-	const scrollToBotttom = async (a: any) => {
+	const scrollToBotttom = async (a: any, b: any) => {
 		if (!browser) return;
 
 		const osInstance = osRef?.osInstance();
@@ -33,7 +33,7 @@
 			chatWindow.scrollTop = chatWindow.scrollHeight;
 		}
 	};
-	$: scrollToBotttom(isFetching);
+	$: scrollToBotttom(streamText, isFetching);
 </script>
 
 <section class="pt-0 pb-6 pl-6 min-h-0 max-h-screen min-w-0 overflow-hidden">
@@ -65,6 +65,6 @@
 			</div>
 		</OverlayScrollbarsComponent>
 
-		<ChatInput {fetchResponse} />
+		<ChatInput {isFetching} {fetchResponse} />
 	</div>
 </section>

@@ -1,14 +1,17 @@
 <script lang="ts">
 	import Button from '$/lib/components/Button/Button.svelte';
 	import SendIcon from '$/lib/icons/SendIcon.svelte';
-	let prompt = '';
 
 	export let fetchResponse: (prompt: string) => void;
+	export let isFetching: boolean
 
+	let prompt = '';
 	let chatForm: HTMLFormElement;
 	let chat: HTMLTextAreaElement;
 
 	function handleChatSubmit(e: SubmitEvent) {
+		if (isFetching) return
+		
 		chat.style.height = '3rem';
 		fetchResponse(prompt);
 		prompt = '';
