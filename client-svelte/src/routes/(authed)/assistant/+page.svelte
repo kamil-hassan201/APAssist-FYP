@@ -11,14 +11,25 @@
 	let streamText: string = '| ';
 	let isFetching: boolean = false;
 
+	const handleGet = async () => {
+		try {
+			const response = await fetch('api/conversation?userEmail=user1@example.com');
+			console.log('Response: ', response);
+			const data = await response.json();
+			console.log('Json', data);
+		} catch (err) {
+			console.log('error: ', err);
+		}
+	};
+
 	const handleAddNewChat = async () => {
 		const sample_conversation: IConversation = {
 			_id: new mongoose.Types.ObjectId(),
 			name: 'Sample Conversation',
-			userEmail: 'user@example.com',
+			userEmail: 'user1@example.com',
 			chat: [
 				{
-					message: 'Hello, how can I assist you?',
+					message: 'Hello this is Kamil, how can I assist you?',
 					role: 'APAssist'
 				},
 				{
@@ -28,7 +39,7 @@
 			]
 		};
 		try {
-			const response = await fetch('api/conversation', {
+			const response = await fetch('api/conversation/add-conversation', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
@@ -36,7 +47,6 @@
 				body: JSON.stringify({ conversation: sample_conversation })
 			});
 			console.log('Response: ', response);
-			// console.log("Data: ", response.formData)
 			const data = await response.json();
 			console.log('Json', data);
 		} catch (err) {
@@ -119,7 +129,8 @@
 	>
 		<Button
 			on:click={() => {
-				handleAddNewChat();
+				// handleAddNewChat();
+				handleGet();
 			}}
 			variant="outline"
 			title="New chat"

@@ -5,7 +5,6 @@ export const createConversation = async (conversation: IConversation) => {
 	try {
 		const newConversation = new ConversationModel(conversation);
 		const savedConversation = await newConversation.save();
-		console.log('Conversation saved:', savedConversation);
 		return {
 			success: true,
 			conversation: savedConversation

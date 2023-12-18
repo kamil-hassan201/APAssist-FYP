@@ -1,14 +1,17 @@
-import { createConversation } from '$/lib/db/conversations/addConversation.js';
+import { getConversationsByUserEmail } from '$/lib/db/conversations/getConversations.js';
 import { error, json } from '@sveltejs/kit';
 
 /** @type {import('./$types').RequestHandler} */
-export async function POST({ request }) {
-	const { conversation } = await request.json();
-	console.log('Conversation: ', conversation);
+export async function GET({ url }) {
+	const userEmail = url.searchParams.get('userEmail') ?? '';
 
-	const response = await createConversation(conversation);
+	if (!userEmail) {
+		error(400, 'Need user email to fetch conversations!');
+	}
+
+	const response = await getConversationsByUserEmail(userEmail);
 	if (response.success) {
-		error(400, 'Unable to create new conversation.');
+		error(400, 'Unable to save the chat to the conversation');
 	}
 	return json(response);
 }
