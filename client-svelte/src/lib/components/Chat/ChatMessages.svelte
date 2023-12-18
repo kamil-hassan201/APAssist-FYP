@@ -2,7 +2,7 @@
 	import { OverlayScrollbarsComponent } from 'overlayscrollbars-svelte';
 	import ChatInput from './ChatInput.svelte';
 	import ChatMessage from './ChatMessage.svelte';
-	import type { Message } from '$/lib/types';
+	import type { IMessage } from '$/lib/types';
 	import { browser } from '$app/environment';
 	import { tick } from 'svelte';
 	import QuickMessages from './QuickMessages.svelte';
@@ -10,7 +10,7 @@
 	export let streamText: string = '| ';
 	export let isFetching: boolean = false;
 
-	export let messages: Message[];
+	export let messages: IMessage[];
 	export let fetchResponse: (prompt: string) => void;
 
 	const handleReplySelect = (reply: string) => {

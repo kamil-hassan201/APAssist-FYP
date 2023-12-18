@@ -1,6 +1,6 @@
 <script lang="ts">
 	import ChatMessages from '$/lib/components/Chat/ChatMessages.svelte';
-	import type { Message } from '$/lib/types';
+	import type { IMessage } from '$/lib/types';
 	import { PUBLIC_BASE_API_URL } from '$env/static/public';
 
 	export let studentCharacteristics: string;
@@ -8,7 +8,7 @@
 
 	let isFetching: boolean = false;
 	let streamText: string = '| ';
-	let messages: Message[] = [
+	let messages: IMessage[] = [
 		{
 			message: `Top 3 courses that best match to your profile are ${courseInfo.top_3_courses
 				.map((course) => course.course_title)

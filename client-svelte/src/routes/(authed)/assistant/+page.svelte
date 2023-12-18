@@ -4,13 +4,47 @@
 	import Button from '$/lib/components/Button/Button.svelte';
 	import AddIcons from '$/lib/icons/AddIcons.svelte';
 	import ChatMessages from '$/lib/components/Chat/ChatMessages.svelte';
-	import type { Message } from '$/lib/types';
+	import type { IConversation, IMessage } from '$/lib/types';
 	import { queryType } from './assistantStore';
+	import mongoose from 'mongoose';
 
 	let streamText: string = '| ';
 	let isFetching: boolean = false;
 
-	let messages: Message[] = [
+	const handleAddNewChat = async () => {
+		const sample_conversation: IConversation = {
+			_id: new mongoose.Types.ObjectId(),
+			name: 'Sample Conversation',
+			userEmail: 'user@example.com',
+			chat: [
+				{
+					message: 'Hello, how can I assist you?',
+					role: 'APAssist'
+				},
+				{
+					message: 'I need help with my order.',
+					role: 'user'
+				}
+			]
+		};
+		try {
+			const response = await fetch('api/conversation', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({ conversation: sample_conversation })
+			});
+			console.log('Response: ', response);
+			// console.log("Data: ", response.formData)
+			const data = await response.json();
+			console.log('Json', data);
+		} catch (err) {
+			console.log('error: ', err);
+		}
+	};
+
+	let messages: IMessage[] = [
 		{
 			message: 'Hi, I am APAssist, a student service assistant. How can I help you today?',
 			role: 'APAssist'
@@ -84,6 +118,9 @@
 		class="z-[1] flex flex-col gap-2 min-h-0 bg-[#303338] border-l border-[#DDD] data-dark:border-[#2A2A2A] overflow-hidden"
 	>
 		<Button
+			on:click={() => {
+				handleAddNewChat();
+			}}
 			variant="outline"
 			title="New chat"
 			class="flex gap-1 m-4 mx-6 mt-3 p-4 text-[#4169E1] text-center border-2 border-[#4169E1] hover:bg-black rounded-full"

@@ -34,6 +34,8 @@
 	"dependencies": {
 		"class-variance-authority": "^0.7.0",
 		"firebase": "^10.7.1",
+		"mongodb": "^6.3.0",
+		"mongoose": "^8.0.3",
 		"overlayscrollbars": "^2.4.5",
 		"overlayscrollbars-svelte": "^0.5.2",
 		"svelte-local-storage-store": "^0.6.4",
