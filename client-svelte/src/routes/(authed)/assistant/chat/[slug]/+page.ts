@@ -1,5 +1,6 @@
 import type { IConversation } from '$/lib/types.js';
 import { redirect } from '@sveltejs/kit';
+import AssistantTitlebar from '../../AssistantTitlebar.svelte';
 
 export async function load({ params, fetch }) {
 	const getConversation = async () => {
@@ -16,6 +17,7 @@ export async function load({ params, fetch }) {
 	};
 
 	return {
-		conversation: getConversation()
+		conversation: getConversation(),
+		title: AssistantTitlebar
 	};
 }

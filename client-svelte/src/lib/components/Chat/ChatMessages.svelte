@@ -9,6 +9,7 @@
 
 	export let streamText: string = '| ';
 	export let isFetching: boolean = false;
+	export let initialPrompt: boolean = false;
 
 	export let messages: IMessage[];
 	export let fetchResponse: (prompt: string) => void;
@@ -58,7 +59,7 @@
 			}}
 			data-pw="chat-window"
 			id="chat-window"
-			class="grow flex flex-col gap-2 pr-4 pt-6 pb-20 overflow-x-hidden overflow-y-auto [&>[data-overlayscrollbars-contents]]:flex [&>[data-overlayscrollbars-contents]]:flex-col [&>[data-overlayscrollbars-contents]]:gap-6"
+			class="grow flex flex-col gap-2 pr-4 pt-6 pb-8 overflow-x-hidden overflow-y-auto [&>[data-overlayscrollbars-contents]]:flex [&>[data-overlayscrollbars-contents]]:flex-col [&>[data-overlayscrollbars-contents]]:gap-6"
 		>
 			<div class="space-y-4">
 				{#each messages as message}
@@ -81,6 +82,6 @@
 			{/if}
 		</OverlayScrollbarsComponent>
 
-		<ChatInput {isFetching} {fetchResponse} />
+		<ChatInput {initialPrompt} {isFetching} {fetchResponse} />
 	</div>
 </section>

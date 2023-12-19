@@ -4,64 +4,13 @@
 	import Button from '$/lib/components/Button/Button.svelte';
 	import AddIcons from '$/lib/icons/AddIcons.svelte';
 	import ChatMessages from '$/lib/components/Chat/ChatMessages.svelte';
-	import type { IConversation, IMessage } from '$/lib/types';
-	import { queryType } from './assistantStore';
-	import mongoose from 'mongoose';
+	import type { IMessage } from '$/lib/types';
+	import { conversations, queryType } from './assistantStore';
 	import { goto } from '$app/navigation';
+	import { authUser } from '$/lib/authStore';
 
 	let streamText: string = '| ';
 	let isFetching: boolean = false;
-
-	const handleGet = async () => {
-		try {
-			const response = await fetch('api/conversation/658173b89cd7b2fdf56ebf89', {
-				method: 'PUT',
-				body: JSON.stringify({
-					name: 'This is new name'
-				})
-			});
-			const data = await response.json();
-			console.log('Json', data);
-		} catch (err) {
-			console.log('error: ', err);
-		}
-	};
-
-	const handleAddNewChat = async () => {
-		const sample_conversation: IConversation = {
-			_id: new mongoose.Types.ObjectId(),
-			name: 'New Chat 2',
-			userEmail: 'kamil@gmail.com',
-			chat: [
-				{
-					message: 'Hello I am APAssist, how can I assist you?',
-					role: 'APAssist'
-				},
-				{
-					message: 'What is APKey?',
-					role: 'user'
-				},
-				{
-					message: 'APKey is the identifier of you ID.',
-					role: 'APAssist'
-				}
-			]
-		};
-		try {
-			const response = await fetch('api/conversation/add-conversation', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify({ conversation: sample_conversation })
-			});
-			console.log('Response: ', response);
-			const data = await response.json();
-			console.log('Json', data);
-		} catch (err) {
-			console.log('error: ', err);
-		}
-	};
 
 	let messages: IMessage[] = [
 		{
@@ -69,6 +18,29 @@
 			role: 'APAssist'
 		}
 	];
+
+	async function saveConversation(messages: IMessage[]) {
+		try {
+			const response = await fetch('/api/conversation/add-conversation', {
+				credentials: 'same-origin',
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					conversation: {
+						name: `New Chat ${$conversations.length + 1}`,
+						userEmail: $authUser?.email,
+						chat: messages
+					}
+				})
+			});
+			const data = await response.json();
+			return data;
+		} catch (err) {
+			alert('Error Saving Conversation!');
+		}
+	}
 
 	async function fetchResponse(prompt: string) {
 		messages.push({ role: 'user', message: prompt });
@@ -115,6 +87,10 @@
 				messages = messages;
 
 				streamText = '| ';
+				const data = await saveConversation(messages);
+				if (data?.success && data.conversation._id) {
+					goto(`/assistant/chat/${data.conversation._id}`);
+				}
 			}
 		} catch (error: any) {
 			alert(`Something went wrong! ${error.message}`);
@@ -131,7 +107,13 @@
 <div
 	class="grid grid-cols-[minmax(0,_auto)] md:grid-cols-[minmax(0,_auto),_20rem] h-[calc(100vh-4.25rem)]"
 >
-	<ChatMessages bind:isFetching bind:streamText bind:messages {fetchResponse} />
+	<ChatMessages
+		initialPrompt={true}
+		bind:isFetching
+		bind:streamText
+		bind:messages
+		{fetchResponse}
+	/>
 
 	<section
 		class="z-[1] flex flex-col gap-2 min-h-0 bg-[#303338] border-l border-[#DDD] data-dark:border-[#2A2A2A] overflow-hidden"

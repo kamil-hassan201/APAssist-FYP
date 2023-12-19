@@ -4,12 +4,13 @@
 	import AddIcons from '$/lib/icons/AddIcons.svelte';
 	import ChatMessages from '$/lib/components/Chat/ChatMessages.svelte';
 	import type { IMessage } from '$/lib/types';
-	import { queryType } from '../../assistantStore';
+	import { activatedChatTitle, queryType } from '../../assistantStore';
 	import { goto } from '$app/navigation';
 	import Conversations from '../../Conversations.svelte';
 
 	export let data;
 	$: ({ conversation } = data);
+	$: $activatedChatTitle = conversation?.name ?? '';
 
 	let streamText: string = '| ';
 	let isFetching: boolean = false;
@@ -17,12 +18,32 @@
 	let messages: IMessage[];
 	$: messages = conversation?.chat ?? [];
 
-	console.log('Messages: ', messages);
+	async function saveMessageToDB(message: IMessage) {
+		try {
+			const response = await fetch(`/api/conversation/add-chat`, {
+				method: 'POST',
+				credentials: 'same-origin',
+				body: JSON.stringify({
+					id: conversation?._id,
+					chat: message
+				})
+			});
+
+			if (!response.ok) {
+				throw new Error('');
+			}
+		} catch (error) {
+			alert(`Error saving the message to database!`);
+		}
+	}
 
 	async function fetchResponse(prompt: string) {
-		messages.push({ role: 'user', message: prompt });
+		const message: IMessage = { role: 'user', message: prompt };
+		messages.push(message);
 		messages = messages;
 		isFetching = true;
+
+		saveMessageToDB(message);
 
 		try {
 			const response = await fetch(`${PUBLIC_BASE_API_URL}/query`, {
@@ -59,6 +80,7 @@
 					streamText += message;
 					console.log(streamText);
 				}
+				saveMessageToDB({ role: 'APAssist', message: streamText });
 				isFetching = false;
 				messages.push({ role: 'APAssist', message: streamText });
 				messages = messages;

@@ -3,15 +3,16 @@
 	import SendIcon from '$/lib/icons/SendIcon.svelte';
 
 	export let fetchResponse: (prompt: string) => void;
-	export let isFetching: boolean
+	export let isFetching: boolean;
+	export let initialPrompt: boolean;
 
 	let prompt = '';
 	let chatForm: HTMLFormElement;
 	let chat: HTMLTextAreaElement;
 
 	function handleChatSubmit(e: SubmitEvent) {
-		if (isFetching) return
-		
+		if (isFetching) return;
+
 		chat.style.height = '3rem';
 		fetchResponse(prompt);
 		prompt = '';
@@ -43,6 +44,7 @@
 		<form bind:this={chatForm} on:submit|preventDefault={handleChatSubmit} class="flex w-full">
 			<!-- svelte-ignore a11y-autofocus -->
 			<textarea
+				disabled={initialPrompt && isFetching}
 				autofocus
 				name="chatbar"
 				placeholder="Enter your query"

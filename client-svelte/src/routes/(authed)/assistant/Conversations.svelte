@@ -7,6 +7,7 @@
 	import type { IConversation } from '$/lib/types';
 	import { goto } from '$app/navigation';
 	import { OverlayScrollbarsComponent } from 'overlayscrollbars-svelte';
+	import { conversations } from './assistantStore';
 
 	const getConversations = async () => {
 		try {
@@ -17,6 +18,7 @@
 			if (!data.success) {
 				throw new Error("Couldn't fetch conversations with the logged in email!");
 			}
+			$conversations = data.data;
 			return data.data as IConversation[];
 		} catch (err) {
 			console.log('error: ', err);

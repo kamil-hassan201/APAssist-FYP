@@ -3,7 +3,7 @@
 	import Dropdown from '$/lib/components/Dropdown/Dropdown.svelte';
 	import DropdownTrigger from '$/lib/components/Dropdown/DropdownTrigger.svelte';
 	import ArrowdownIcon from '$lib/icons/ArrowdownIcon.svelte';
-	import { queryType } from './assistantStore';
+	import { activatedChatTitle, queryType } from './assistantStore';
 	import Tooltip from '$/lib/components/Tooltip.svelte';
 
 	let tooltipHtml = `<strong>Chat</strong> - Use to ask follow up questions. <br/> 
@@ -16,8 +16,8 @@
 <div
 	class="relative grow flex items-center justify-between gap-6 py-3 pl-5 h-full w-full max-w-[calc(100vw-15.5rem+20rem)]"
 >
-	<div title="New chat" class="grow self-end">
-		<h2 class="font-medium line-clamp-1">New chat</h2>
+	<div class="grow self-end my-auto">
+		<h2 class="font-semibold">{$activatedChatTitle}</h2>
 	</div>
 
 	<div class="flex gap-4 items-center">
