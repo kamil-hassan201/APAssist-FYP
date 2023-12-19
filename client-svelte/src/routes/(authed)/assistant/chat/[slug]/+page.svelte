@@ -1,74 +1,23 @@
 <script lang="ts">
 	import { PUBLIC_BASE_API_URL } from '$env/static/public';
-	import Conversations from './Conversations.svelte';
 	import Button from '$/lib/components/Button/Button.svelte';
 	import AddIcons from '$/lib/icons/AddIcons.svelte';
 	import ChatMessages from '$/lib/components/Chat/ChatMessages.svelte';
-	import type { IConversation, IMessage } from '$/lib/types';
-	import { queryType } from './assistantStore';
-	import mongoose from 'mongoose';
+	import type { IMessage } from '$/lib/types';
+	import { queryType } from '../../assistantStore';
 	import { goto } from '$app/navigation';
+	import Conversations from '../../Conversations.svelte';
+
+	export let data;
+	$: ({ conversation } = data);
 
 	let streamText: string = '| ';
 	let isFetching: boolean = false;
 
-	const handleGet = async () => {
-		try {
-			const response = await fetch('api/conversation/658173b89cd7b2fdf56ebf89', {
-				method: 'PUT',
-				body: JSON.stringify({
-					name: 'This is new name'
-				})
-			});
-			const data = await response.json();
-			console.log('Json', data);
-		} catch (err) {
-			console.log('error: ', err);
-		}
-	};
+	let messages: IMessage[];
+	$: messages = conversation?.chat ?? [];
 
-	const handleAddNewChat = async () => {
-		const sample_conversation: IConversation = {
-			_id: new mongoose.Types.ObjectId(),
-			name: 'New Chat 2',
-			userEmail: 'kamil@gmail.com',
-			chat: [
-				{
-					message: 'Hello I am APAssist, how can I assist you?',
-					role: 'APAssist'
-				},
-				{
-					message: 'What is APKey?',
-					role: 'user'
-				},
-				{
-					message: 'APKey is the identifier of you ID.',
-					role: 'APAssist'
-				}
-			]
-		};
-		try {
-			const response = await fetch('api/conversation/add-conversation', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify({ conversation: sample_conversation })
-			});
-			console.log('Response: ', response);
-			const data = await response.json();
-			console.log('Json', data);
-		} catch (err) {
-			console.log('error: ', err);
-		}
-	};
-
-	let messages: IMessage[] = [
-		{
-			message: 'Hi, I am APAssist, a student service assistant. How can I help you today?',
-			role: 'APAssist'
-		}
-	];
+	console.log('Messages: ', messages);
 
 	async function fetchResponse(prompt: string) {
 		messages.push({ role: 'user', message: prompt });

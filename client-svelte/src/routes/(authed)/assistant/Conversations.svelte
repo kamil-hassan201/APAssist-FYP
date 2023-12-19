@@ -10,7 +10,7 @@
 
 	const getConversations = async () => {
 		try {
-			const response = await fetch(`api/conversation?userEmail=${$authUser?.email}`, {
+			const response = await fetch(`/api/conversation?userEmail=${$authUser?.email}`, {
 				credentials: 'same-origin'
 			});
 			const data = await response.json();
