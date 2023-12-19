@@ -29,16 +29,20 @@
 	const handleAddNewChat = async () => {
 		const sample_conversation: IConversation = {
 			_id: new mongoose.Types.ObjectId(),
-			name: 'Sample Conversation',
-			userEmail: 'user@example.com',
+			name: 'New Chat 2',
+			userEmail: 'kamil@gmail.com',
 			chat: [
 				{
-					message: 'Hello this is Kamil, how can I assist you?',
+					message: 'Hello I am APAssist, how can I assist you?',
 					role: 'APAssist'
 				},
 				{
-					message: 'I need help with my order.',
+					message: 'What is APKey?',
 					role: 'user'
+				},
+				{
+					message: 'APKey is the identifier of you ID.',
+					role: 'APAssist'
 				}
 			]
 		};
@@ -133,8 +137,8 @@
 	>
 		<Button
 			on:click={() => {
-				// handleAddNewChat();
-				handleGet();
+				handleAddNewChat();
+				// handleGet();
 			}}
 			variant="outline"
 			title="New chat"

@@ -3,9 +3,16 @@
 	import logo from '$lib/assets/APAssist.png';
 	import Button from '$/lib/components/Button/Button.svelte';
 	import { goto } from '$app/navigation';
+	import CloseIcon from '$/lib/icons/CloseIcon.svelte';
+	import { page } from '$app/stores';
+	import { browser } from '$app/environment';
 	let name = $authUser?.displayName;
 	let uid = $authUser?.uid;
 	let email = $authUser?.email;
+
+	function nav_back() {
+		if (browser) window.history.back();
+	}
 </script>
 
 <svelte:head>
@@ -13,8 +20,17 @@
 </svelte:head>
 
 <section
-	class="flex flex-col gap-4 p-8 space-y-2 bg-[#303338] w-1/3 text-black rounded-2xl my-auto mx-auto"
+	class="flex relative flex-col gap-4 p-8 space-y-2 bg-[#303338] w-1/3 text-black rounded-2xl my-auto mx-auto"
 >
+	<Button
+		on:click={() => {
+			nav_back();
+		}}
+		variant="ghost"
+		class="absolute top-10 right-4"
+	>
+		<CloseIcon class="text-white w-6" />
+	</Button>
 	<img src={logo} class="w-48 mx-auto" alt="APAssist logo" />
 	<!-- <p class="px-4 py-2 border border-gray-300 rounded-md">Name: {user?.displayName}</p> -->
 	<!-- svelte-ignore a11y-label-has-associated-control -->

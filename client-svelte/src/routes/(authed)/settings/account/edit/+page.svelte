@@ -5,6 +5,8 @@
 	import { goto } from '$app/navigation';
 	import { updateProfile } from 'firebase/auth';
 	import { firebaseAuth } from '$/lib/firebase/firebase';
+	import CloseIcon from '$/lib/icons/CloseIcon.svelte';
+	import { browser } from '$app/environment';
 	let name = $authUser?.displayName;
 	let uid = $authUser?.uid;
 	let email = $authUser?.email;
@@ -47,6 +49,10 @@
 			isLoading = false;
 		}
 	};
+
+	function nav_back() {
+		if (browser) window.history.back();
+	}
 </script>
 
 <svelte:head>
@@ -54,8 +60,17 @@
 </svelte:head>
 
 <section
-	class="flex flex-col gap-4 p-8 space-y-2 bg-[#303338] w-1/3 text-black rounded-2xl my-auto mx-auto"
+	class="relative flex flex-col gap-4 p-8 space-y-2 bg-[#303338] w-1/3 text-black rounded-2xl my-auto mx-auto"
 >
+	<Button
+		on:click={() => {
+			nav_back();
+		}}
+		variant="ghost"
+		class="absolute top-10 right-4"
+	>
+		<CloseIcon class="text-white w-6" />
+	</Button>
 	<img src={logo} class="w-48 mx-auto" alt="APAssist logo" />
 	<!-- <p class="px-4 py-2 border border-gray-300 rounded-md">Name: {user?.displayName}</p> -->
 	<!-- svelte-ignore a11y-label-has-associated-control -->
