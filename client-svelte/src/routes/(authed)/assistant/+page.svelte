@@ -13,8 +13,12 @@
 
 	const handleGet = async () => {
 		try {
-			const response = await fetch('api/conversation?userEmail=user1@example.com');
-			console.log('Response: ', response);
+			const response = await fetch('api/conversation/658173b89cd7b2fdf56ebf89', {
+				method: 'PUT',
+				body: JSON.stringify({
+					name: 'This is new name'
+				})
+			});
 			const data = await response.json();
 			console.log('Json', data);
 		} catch (err) {
@@ -26,7 +30,7 @@
 		const sample_conversation: IConversation = {
 			_id: new mongoose.Types.ObjectId(),
 			name: 'Sample Conversation',
-			userEmail: 'user1@example.com',
+			userEmail: 'user@example.com',
 			chat: [
 				{
 					message: 'Hello this is Kamil, how can I assist you?',

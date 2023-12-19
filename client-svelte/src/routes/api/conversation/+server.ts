@@ -10,7 +10,7 @@ export async function GET({ url }) {
 	}
 
 	const response = await getConversationsByUserEmail(userEmail);
-	if (response.success) {
+	if (!response.success) {
 		error(400, 'Unable to save the chat to the conversation');
 	}
 	return json(response);
