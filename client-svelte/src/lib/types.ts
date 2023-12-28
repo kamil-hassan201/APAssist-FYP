@@ -15,3 +15,5 @@ export interface IConversation {
 	userEmail: string;
 	chat: IMessage[];
 }
+
+export type TQueryType = 'chat' | 'simple' | 'structured';

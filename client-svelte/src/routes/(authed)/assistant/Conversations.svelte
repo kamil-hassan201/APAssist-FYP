@@ -53,7 +53,6 @@
 							class="my-0 h-7"
 							on:click={(e) => {
 								e.stopPropagation();
-								console.log('hi');
 							}}
 							variant="ghost"><PencilIcon class="w-4   text-white" /></Button
 						>

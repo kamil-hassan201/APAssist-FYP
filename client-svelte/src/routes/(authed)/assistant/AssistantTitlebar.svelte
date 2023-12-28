@@ -5,12 +5,17 @@
 	import ArrowdownIcon from '$lib/icons/ArrowdownIcon.svelte';
 	import { activatedChatTitle, queryType } from './assistantStore';
 	import Tooltip from '$/lib/components/Tooltip.svelte';
+	import type { TQueryType } from '$/lib/types';
 
 	let tooltipHtml = `<strong>Chat</strong> - Use to ask follow up questions. <br/> 
                      <strong>Simple</strong> - Use simple when you want to ask stand alone question. <br/> 
                      <strong>Structured</strong> - Use structured query only when you feel like The LLM is hallucinating`;
 
-	$: queryTypes = $page.data.queryTypes;
+	const queryTypes: { name: string; value: TQueryType }[] = [
+		{ name: 'Chat', value: 'chat' },
+		{ name: 'Simple', value: 'simple' }
+		// { name: 'Structured', value: 'structured' }
+	];
 </script>
 
 <div

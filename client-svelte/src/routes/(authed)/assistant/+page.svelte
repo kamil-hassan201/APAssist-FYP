@@ -80,7 +80,6 @@
 					// Assuming the stream is sending text data
 					const message = new TextDecoder().decode(value);
 					streamText += message;
-					console.log(streamText);
 				}
 				isFetching = false;
 				messages.push({ role: 'APAssist', message: streamText });

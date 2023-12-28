@@ -15,7 +15,7 @@ export async function GET({ params }) {
 export async function DELETE({ params }) {
 	const data = await deleteConversationById(params.id);
 	if (!data.success) {
-		error(400, 'Unable to save the chat to the conversation');
+		error(400, 'Unable to delete the chat to the conversation');
 	}
 	return json(data);
 }
