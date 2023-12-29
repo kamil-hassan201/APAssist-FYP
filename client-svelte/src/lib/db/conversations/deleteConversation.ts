@@ -6,8 +6,8 @@ export const deleteConversationById = async (id: string) => {
 		if (data) {
 			return { success: true, data: data };
 		}
-		return { sucess: false, err: `Unable to delete conversation with the ID: ${id}` };
+		return { sucess: false, error: `Unable to delete conversation with the ID: ${id}` };
 	} catch (err) {
-		return { success: false, err: err };
+		return { success: false, error: err };
 	}
 };
