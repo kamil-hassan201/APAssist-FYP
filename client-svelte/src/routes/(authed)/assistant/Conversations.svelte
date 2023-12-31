@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { conversations } from './assistantStore';
+	import { activatedChatTitle, conversations } from './assistantStore';
 	import { authUser } from '$/lib/authStore';
 	import Button from '$/lib/components/Button/Button.svelte';
 	import ChatBubbleIcon from '$/lib/icons/ChatBubbleIcon.svelte';
@@ -99,6 +99,7 @@
 				throw new Error('Unable to delete conversation!');
 			}
 			if (data?.success) {
+				$activatedChatTitle = conversationName;
 				isRenameConversationOpen = null;
 
 				conversationsPromise = getConversations();
@@ -138,7 +139,9 @@
 						$page.params.slug === conversation._id.toString() && 'bg-slate-600'
 					}`}
 				>
-					<ChatBubbleIcon class="h-7 mr-2 my-auto" />
+					<div>
+						<ChatBubbleIcon class="h-7 mr-2 my-auto" />
+					</div>
 
 					<p class="my-auto whitespace-nowrap overflow-hidden">
 						{conversation.name}
