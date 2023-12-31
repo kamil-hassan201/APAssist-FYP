@@ -12,8 +12,8 @@
                      <strong>Structured</strong> - Use structured query only when you feel like The LLM is hallucinating`;
 
 	const queryTypes: { name: string; value: TQueryType }[] = [
-		{ name: 'Chat', value: 'chat' },
-		{ name: 'Simple', value: 'simple' }
+		{ name: 'Simple', value: 'simple' },
+		{ name: 'Chat', value: 'chat' }
 		// { name: 'Structured', value: 'structured' }
 	];
 </script>

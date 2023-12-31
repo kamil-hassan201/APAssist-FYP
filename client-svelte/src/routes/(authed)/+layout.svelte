@@ -2,7 +2,7 @@
 	import '$/app.css';
 	import 'overlayscrollbars/overlayscrollbars.css';
 	import { page } from '$app/stores';
-	import { showDock, showLoadingOverlay } from '$/globalStore';
+	import { showDock } from '$/globalStore';
 
 	import Logo from '$lib/assets/APAssist.png';
 	import HamburgerIcon from '$lib/icons/HamburgerIcon.svelte';
@@ -69,13 +69,5 @@
 
 			<slot />
 		</div>
-
-		{#if $showLoadingOverlay}
-			<div
-				class="absolute top-0 bottom-0 left-0 right-0 z-[9999] flex items-center justify-center bg-black/60"
-			>
-				<span class="loading loading-spinner loading-lg text-accent-2" />
-			</div>
-		{/if}
 	{/if}
 </main>

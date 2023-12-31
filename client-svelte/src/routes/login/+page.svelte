@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { showLoadingOverlay } from '$/globalStore';
 	import { authUser } from '$/lib/authStore';
 	import Button from '$/lib/components/Button/Button.svelte';
 	import { firebaseAuth } from '$/lib/firebase/firebase';
@@ -30,6 +31,7 @@
 	});
 
 	const login = () => {
+		$showLoadingOverlay = true;
 		setPersistence(firebaseAuth, browserLocalPersistence)
 			.then(() => {
 				return signInWithEmailAndPassword(firebaseAuth, email, password);
@@ -41,7 +43,7 @@
 					uid: userCredential.user.uid,
 					email: userCredential.user.email || ''
 				};
-
+				$showLoadingOverlay = false;
 				goto('/');
 			})
 			.catch((error) => {

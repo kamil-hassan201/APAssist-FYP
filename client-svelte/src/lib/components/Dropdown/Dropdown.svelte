@@ -33,7 +33,7 @@
 			out:scale={{ start: 0.9, duration: 100 }}
 			on:click={() => ($isOpenStore = false)}
 			class={cn(
-				'absolute top-12 right-0 flex flex-col gap-1 p-1 max-h-96 rounded-md bg-foreground text-foreground-content overflow-auto shadow-float [&>*]:p-2 [&>*]:rounded-md [&>*]:cursor-pointer [&>*]:transition-colors [&>*]:duration-100',
+				'absolute top-12 left-0 flex flex-col gap-1 p-1 max-h-96 rounded-md bg-foreground text-foreground-content overflow-auto shadow-float [&>*]:p-2 [&>*]:rounded-md [&>*]:cursor-pointer [&>*]:transition-colors [&>*]:duration-100',
 				className
 			)}
 		>
