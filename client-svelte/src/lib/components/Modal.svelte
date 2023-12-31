@@ -23,10 +23,10 @@
 		<!-- svelte-ignore a11y-no-static-element-interactions -->
 		<div
 			class={cn(
-				`relative top-[20vh] mx-auto border w-[${width}vw] p-2 bg-white rounded-lg`,
+				`relative top-[20vh] mx-auto border w-[${width.toString()}vw]  p-2 bg-white rounded-lg`,
 				className
 			)}
-			in:fade={{ duration: 150 }}
+			in:fade={{ duration: 200 }}
 			out:fade={{ duration: 150 }}
 			on:click|stopPropagation
 		>
