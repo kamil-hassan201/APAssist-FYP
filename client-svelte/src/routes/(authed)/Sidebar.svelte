@@ -1,11 +1,11 @@
 <script lang="ts">
 	import RecommendationIcon from '$lib/icons/RecommendationIcon.svelte';
-	import Logo from '$lib/assets/logo.png';
+	import Logo from '$lib/assets/APAssist.png';
 	import { showDock } from '$/globalStore';
 	import { page } from '$app/stores';
 	import AssistantIcon from '$/lib/icons/AssistantIcon.svelte';
 	import UserDetails from './UserDetails.svelte';
-	import {authUser} from "$lib/authStore"
+	import { authUser } from '$lib/authStore';
 
 	const links = [
 		{
