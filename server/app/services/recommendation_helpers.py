@@ -9,11 +9,6 @@ from app.services.prompt_templates import template_find_top_course_from_k_neares
 from langchain.chat_models import ChatOpenAI
 from langchain.prompts import ChatPromptTemplate
 from langchain.output_parsers import StructuredOutputParser, CommaSeparatedListOutputParser, ResponseSchema
-from openai.embeddings_utils import (
-    get_embedding,
-    distances_from_embeddings,
-    indices_of_nearest_neighbors_from_distances,
-)
 from app import client as wv_client
 
 

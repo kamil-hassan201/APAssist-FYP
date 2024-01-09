@@ -8,14 +8,14 @@
 	export let show = false;
 	export let close: () => void;
 	export let title: string | undefined = '';
-	export let width: number = 40;
+	// export let width: number = 40;
 </script>
 
 {#if show}
 	<!-- svelte-ignore a11y-no-static-element-interactions -->
 	<!-- svelte-ignore a11y-click-events-have-key-events -->
 	<div
-		class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full text-black"
+		class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full text-black z-50"
 		on:click={close}
 		on:blur={close}
 	>
@@ -23,7 +23,7 @@
 		<!-- svelte-ignore a11y-no-static-element-interactions -->
 		<div
 			class={cn(
-				`relative top-[20vh] mx-auto border w-[${width.toString()}vw]  p-2 bg-white rounded-lg`,
+				`relative top-[20vh] mx-auto border w-[40vw] z-50  p-2 bg-white rounded-lg`,
 				className
 			)}
 			in:fade={{ duration: 200 }}

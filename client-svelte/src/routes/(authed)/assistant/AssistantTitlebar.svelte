@@ -13,8 +13,8 @@
 
 	const queryTypes: { name: string; value: TQueryType }[] = [
 		{ name: 'Simple', value: 'simple' },
-		{ name: 'Chat', value: 'chat' }
-		// { name: 'Structured', value: 'structured' }
+		{ name: 'Chat', value: 'chat' },
+		{ name: 'Structured', value: 'structured' }
 	];
 </script>
 

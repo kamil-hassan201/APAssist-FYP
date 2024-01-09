@@ -26,10 +26,10 @@ if ps -p $SERVER_PID > /dev/null; then
     echo "Server started successfully. Starting the client..."
 
     # Navigate to the client directory
-    cd ../client
+    cd ../client-svelte
 
     # Start the client in the foreground
-    yarn dev
+    npm run dev
 else
     echo "Failed to start the server. Exiting."
     exit 1
