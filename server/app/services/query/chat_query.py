@@ -1,5 +1,3 @@
-from tabnanny import verbose
-import llama_index
 from llama_index.prompts import PromptTemplate
 from llama_index.llms import ChatMessage, MessageRole
 from llama_index.chat_engine.context import ContextChatEngine

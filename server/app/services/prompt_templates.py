@@ -74,8 +74,9 @@ context_query_template = (
     "---------------------\n"
     "Given the context information and not prior knowledge, "
     "answer the query with as details as possible.\n"
-    "If don't have the answer in the context, reply with - Unfortunately I don't have the information."
-    "Then you try to provide with your own generalized question."
+    "If don't have the answer in the context, reply with only - 'Unfortunately I don't have the information.'"
+    "Then you try to provide with your own generalized question.\n"
+
     "Query: {query_str}\n"
     "Answer: "
 )

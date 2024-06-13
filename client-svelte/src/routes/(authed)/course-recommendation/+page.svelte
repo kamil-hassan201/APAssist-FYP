@@ -23,6 +23,7 @@
 
 	const handleFormSubmit = async (properties: RecommendationProps) => {
 		studentCharacteristics = properties?.student_profile;
+		console.log('properties', properties);
 		try {
 			formSubmitted = true;
 			isFetching = true;

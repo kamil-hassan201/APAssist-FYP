@@ -28,7 +28,7 @@ class Query(Resource):
 
         prompt = chatMessages[-1]['message']
 
-        query_type = body.get('queryType', 'chat')
+        query_type = body.get('queryType', 'simple')
 
         # Check if prompt is None, which would indicate that parsing failed
         if prompt is None:

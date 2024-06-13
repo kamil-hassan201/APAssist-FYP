@@ -5,9 +5,11 @@
 	import AddIcons from '$/lib/icons/AddIcons.svelte';
 	import ChatMessages from '$/lib/components/Chat/ChatMessages.svelte';
 	import type { IMessage } from '$/lib/types';
-	import { conversations, queryType } from './assistantStore';
+	import { activatedChatTitle, conversations, queryType } from './assistantStore';
 	import { goto } from '$app/navigation';
 	import { authUser } from '$/lib/authStore';
+
+	$: $activatedChatTitle = 'New Chat';
 
 	let streamText: string = '| ';
 	let isFetching: boolean = false;

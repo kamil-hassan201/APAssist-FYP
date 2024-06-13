@@ -6,6 +6,7 @@
 	import { browser } from '$app/environment';
 	import { tick } from 'svelte';
 	import QuickMessages from './QuickMessages.svelte';
+	import { afterNavigate } from '$app/navigation';
 
 	export let streamText: string = '| ';
 	export let isFetching: boolean = false;
@@ -40,6 +41,9 @@
 		}
 	};
 	$: scrollToBotttom(streamText, isFetching);
+	afterNavigate(() => {
+		scrollToBotttom('', '');
+	});
 </script>
 
 <section class="pt-0 pb-6 pl-6 min-h-0 max-h-screen min-w-0 overflow-hidden">
